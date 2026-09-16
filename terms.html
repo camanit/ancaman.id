@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syarat & Ketentuan — Antivirus Ancaman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0f1d;
+      --bg-card: rgba(18, 26, 47, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary-cyan: #06b6d4;
+      --primary-emerald: #10b981;
+      --primary-neon: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      padding: 3rem 1.5rem;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 3.5rem 3rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.3rem;
+      background: var(--primary-neon);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .btn-back {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-color);
+      color: var(--primary-cyan);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-back:hover {
+      background: var(--primary-cyan);
+      color: #0a0f1d;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    .updated {
+      color: var(--primary-cyan);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 2.5rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    p {
+      color: #cbd5e1;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+    }
+    li { margin-bottom: 0.5rem; }
+    .badge-sovereign {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--primary-emerald);
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-nav">
+      <a href="landing_page.html" class="logo">🛡️ ANCAMAN CYBER DEFENSE</a>
+      <a href="landing_page.html" class="btn-back">← Kembali ke Beranda</a>
+    </div>
+
+    <div class="badge-sovereign">🇮🇩 KEDAULATAN SIBER INDONESIA • STANDAR BSSN CSF</div>
+    <h1>Syarat & Ketentuan Penggunaan</h1>
+    <div class="updated">Terakhir Diperbarui: September 2026 | Berlaku untuk Edisi Community, Pro, & Enterprise</div>
+
+    <h2>1. Penerimaan Ketentuan</h2>
+    <p>Dengan mengunduh, memasang, atau menggunakan perangkat lunak Antivirus Ancaman ("Aplikasi"), Anda menyetujui untuk terikat secara hukum dengan seluruh Syarat dan Ketentuan ini. Jika Anda tidak menyetujui salah satu klausul, harap untuk tidak memasang atau menggunakan perangkat lunak ini.</p>
+
+    <h2>2. Ruang Lingkup & Tujuan Pertahanan Siber</h2>
+    <p>Antivirus Ancaman dikembangkan menggunakan bahasa pemrograman Rust sebagai platform pertahanan siber kedaulatan nasional. Aplikasi ini disediakan secara eksklusif untuk tujuan pertahanan keamanan digital, pemantauan integritas berkas, serta pencegahan serangan malware, trojan, ransomware, dan eksploitasi tanpa izin.</p>
+
+    <h2>3. Model Lisensi & Kedaulatan Data (Air-Gapped First)</h2>
+    <p>Aplikasi ini beroperasi dengan prinsip <strong>Air-Gapped First</strong> (dapat berjalan 100% mandiri tanpa ketergantungan koneksi internet):</p>
+    <ul>
+      <li><strong>Lisensi Community (Gratis):</strong> Diberikan hak pemakaian non-eksklusif untuk pemindaian berkas personal menggunakan mesin YARA-X dan Penjara Karantina (AES-256-GCM).</li>
+      <li><strong>Lisensi Pro & Enterprise:</strong> Diberikan hak proteksi kernel real-time (RASP 24/7), jadwal audit berkala, dan integrasi telemetri terpusat dengan token tanda tangan digital Ed25519 yang terikat ke Hardware Machine ID.</li>
+    </ul>
+
+    <h2>4. Langganan, Pembayaran & Aktivasi Lisensi</h2>
+    <p>Pengguna dapat berlangganan edisi Professional atau Enterprise melalui kanal resmi:</p>
+    <ul>
+      <li><strong>WhatsApp Resmi:</strong> <code>081260006666</code> (Layanan Pelanggan & Penerbitan Lisensi)</li>
+      <li><strong>Rekening Pembayaran Resmi:</strong> <strong>Allo Bank</strong> No. Rekening: <code>081260006666</code> a/n <strong>Abdul Rahman Rahmad</strong></li>
+      <li>Setelah pembayaran diverifikasi, token lisensi digital Ed25519 akan diterbitkan dan dikirimkan untuk aktivasi langsung di perangkat Anda.</li>
+    </ul>
+
+    <h2>5. Batasan Penggunaan yang Dilarang</h2>
+    <p>Pengguna dilarang keras untuk:</p>
+    <ul>
+      <li>Melakukan rekayasa balik (reverse-engineering) terhadap mesin heuristik pertahanan untuk tujuan pembuatan senjata siber (malware).</li>
+      <li>Memodifikasi atau memanipulasi tanda tangan digital kriptografis lisensi Ed25519.</li>
+      <li>Menggunakan perangkat lunak dengan cara yang melanggar hukum keamanan siber atau peraturan perundang-undangan di Republik Indonesia.</li>
+    </ul>
+
+    <h2>6. Penolakan Jaminan & Batasan Tanggung Jawab</h2>
+    <p>Meskipun Antivirus Ancaman dibangun dengan teknologi memori aman Rust serta mengadopsi standar internasional ISO 27001 dan BSSN CSF, tidak ada sistem keamanan di dunia yang dapat menjamin kekebalan mutlak 100% terhadap seluruh varian serangan zero-day baru yang belum pernah teridentifikasi. Perangkat lunak disediakan "AS IS" (sebagaimana adanya).</p>
+
+    <h2>6. Hukum yang Mengatur</h2>
+    <p>Syarat dan Ketentuan ini diatur dan ditafsirkan berdasarkan hukum Negara Kesatuan Republik Indonesia.</p>
+
+    <footer>
+      © 2026 PT Antivirus Ancaman Indonesia • Seluruh Hak Cipta Dilindungi Undang-Undang.
+    </footer>
+  </div>
+</body>
+</html>
