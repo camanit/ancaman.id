@@ -42,24 +42,13 @@ if (Test-Path $installDir) {
     Write-Host "  OK - Folder '$installDir' dihapus." -ForegroundColor Green
 }
 
-# Hapus shortcut Desktop dan Startup
+# Hapus shortcut Desktop
 $desktopPath  = [Environment]::GetFolderPath("CommonDesktopDirectory")
 $shortcutPath = Join-Path $desktopPath "Ancaman Antivirus.lnk"
 if (Test-Path $shortcutPath) {
     Remove-Item $shortcutPath -Force
     Write-Host "  OK - Shortcut desktop dihapus." -ForegroundColor Green
 }
-
-$startupPath = Join-Path ([Environment]::GetFolderPath("CommonStartup")) "Ancaman Antivirus.lnk"
-if (Test-Path $startupPath) {
-    Remove-Item $startupPath -Force -ErrorAction SilentlyContinue
-    Write-Host "  OK - Startup shortcut dihapus." -ForegroundColor Green
-}
-
-# Hapus Registry Auto-Start
-Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "AncamanAntivirus" -ErrorAction SilentlyContinue
-Write-Host "  OK - Registry Auto-Start dibersihkan." -ForegroundColor Green
-
 
 Write-Host ""
 Write-Host "  =========================================" -ForegroundColor Cyan

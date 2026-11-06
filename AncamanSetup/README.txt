@@ -1,44 +1,29 @@
-===================================================================
-     ANCAMAN ANTIVIRUS & CYBER DEFENSE — ENTERPRISE EDITION v0.1
-           Indonesian Sovereign Cyber Defense • Built in Rust
-===================================================================
+﻿ANTIVIRUS ANCAMAN â€” Paket Instalasi
+========================================
+Versi  : 0.1.0
+Build  : 2026-11-06 13:38
+Platform: Windows 10/11 (x64)
 
-[ID] PANDUAN CEPAT INSTALASI:
------------------------------
-1. Cukup double-click file "Setup.bat"
-   (Akan otomatis meminta izin Administrator untuk memasang).
-2. Installer akan otomatis:
-   - Memasang file ke "C:\Program Files\Ancaman"
-   - Mengaktifkan Auto-Start saat Windows Boot (komputer hidup langsung terlindungi)
-   - Mengaktifkan System Tray Icon di taskbar Windows
-   - Memasang lisensi dan membuat shortcut di Desktop
-3. Cara Membuka Dashboard:
-   - Double-click shortcut "Ancaman Antivirus" di Desktop.
-   - Atau klik icon perisai di System Tray (dekat jam taskbar).
-4. Panduan lengkap dan kebijakan hukum dapat dibaca di folder "panduan/":
-   - panduan\PANDUAN_PENGGUNA_ID.md
-   - panduan\KETENTUAN_PENGGUNAAN_ID.md
-   - panduan\KEBIJAKAN_PRIVASI_ID.md
+=== CARA INSTALL ===
+  Klik kanan Setup.bat -> Run as Administrator
 
--------------------------------------------------------------------
+=== CARA UNINSTALL ===
+  Klik kanan uninstall.ps1 -> Run with PowerShell (as Admin)
 
-[EN] QUICK INSTALLATION GUIDE:
-------------------------------
-1. Simply double-click "Setup.bat"
-   (Will automatically request Administrator elevation).
-2. The installer will automatically:
-   - Install all components to "C:\Program Files\Ancaman"
-   - Configure Auto-Start on Windows Boot (protection starts on boot)
-   - Enable the System Tray Icon in the Windows taskbar
-   - Configure license and create the Desktop shortcut
-3. How to Open Dashboard:
-   - Double-click the "Ancaman Antivirus" shortcut on your Desktop.
-   - Or click the shield icon in the System Tray (near taskbar clock).
-4. Full documentation and legal terms can be viewed in folder "panduan/":
-   - panduan\USER_GUIDE_EN.md
-   - panduan\TERMS_OF_USE_EN.md
-   - panduan\PRIVACY_POLICY_EN.md
+=== LISENSI ===
+  Community (Free) dibuat otomatis saat install.
+  Hardware ID Anda ditampilkan di tab Lisensi di dashboard.
+  Upgrade ke Pro: hubungi ancaman.id dengan Hardware ID.
 
-===================================================================
-Official Portal: https://ancaman.id  |  WhatsApp: 081260006666
-===================================================================
+  FREE  : Scan manual, Quarantine, Dashboard lokal
+  PRO   : + Real-time protect, Cloud Query (VT/MWB), BSSN Report
+
+=== CATATAN VMware ===
+  - WebView2 Runtime: sudah built-in di Windows 10 21H1+
+  - VM Display: matikan 'Accelerate 3D graphics'
+  - App otomatis aktifkan software rendering di VM
+
+=== TANPA INSTALL (portable) ===
+  1. Taruh semua file di 1 folder
+  2. Double-click ancaman-gui.exe
+  3. Dashboard muncul dalam ~3 detik

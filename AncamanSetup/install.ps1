@@ -83,14 +83,28 @@ if (-not (Test-Path $installDir)) {
     New-Item -ItemType Directory -Path $installDir -Force | Out-Null
 }
 
-# Salin executable utama
+# Salin executable utama & tools
 Copy-Item -Path $guiExe    -Destination "$installDir\ancaman-gui.exe"    -Force
 Copy-Item -Path $serverExe -Destination "$installDir\ancaman-server.exe" -Force
 
-# Salin folder web (UI)
+$cliExe = Join-Path $scriptDir "ancaman.exe"
+if (Test-Path $cliExe) {
+    Copy-Item -Path $cliExe -Destination "$installDir\ancaman.exe" -Force
+}
+
+$icoFile = Join-Path $scriptDir "ancaman.ico"
+if (Test-Path $icoFile) {
+    Copy-Item -Path $icoFile -Destination "$installDir\ancaman.ico" -Force
+}
+
+# Salin folder web (UI) - Bersihkan terlebih dahulu agar tidak membuat subfolder bersarang (web/web)
+if (Test-Path "$installDir\web") {
+    Remove-Item -Path "$installDir\web" -Recurse -Force -ErrorAction SilentlyContinue
+}
 if (Test-Path $webDir) {
-    Copy-Item -Path $webDir -Destination "$installDir\web" -Recurse -Force
-    Write-Host "  OK - Folder web UI disalin." -ForegroundColor Green
+    New-Item -ItemType Directory -Path "$installDir\web" -Force | Out-Null
+    Copy-Item -Path "$webDir\*" -Destination "$installDir\web" -Recurse -Force
+    Write-Host "  OK - Folder web UI disalin bersih (terkini)." -ForegroundColor Green
 }
 
 # Salin signatures jika ada
@@ -101,15 +115,6 @@ if (Test-Path $sigDir) {
 }
 
 Write-Host "  OK - File berhasil diinstall." -ForegroundColor Green
-# Salin uninstall helper
-$uninstallPs1 = Join-Path $scriptDir "uninstall.ps1"
-if (Test-Path $uninstallPs1) {
-    Copy-Item -Path $uninstallPs1 -Destination "$installDir\uninstall.ps1" -Force
-    $uninstallBat = "@echo off`r`npowershell -ExecutionPolicy Bypass -File `"%~dp0uninstall.ps1`"`r`npause`r`n"
-    [System.IO.File]::WriteAllText("$installDir\uninstall.bat", $uninstallBat)
-    Write-Host "  OK - Uninstaller disalin ke Program Files." -ForegroundColor Green
-}
-
 
 # ── 5. Buat Free License Otomatis ─────────────────────────
 Write-Host ""
@@ -162,50 +167,63 @@ if (Test-Path $customLic) {
     Write-Host "  INFO - Lisensi sudah ada, tidak perlu dibuat ulang." -ForegroundColor Yellow
 }
 
-# ── 6. Buat Shortcut di Desktop ───────────────────────────
+# ── 6. Buat Shortcut Tunggal di Desktop & Bersihkan Duplikat ───────────────────
 Write-Host ""
-Write-Host "[6/6] Membuat shortcut di Desktop..." -ForegroundColor Green
+Write-Host "[6/7] Membuat shortcut di Desktop..." -ForegroundColor Green
 
-$desktopPath = [Environment]::GetFolderPath("CommonDesktopDirectory")
-$shortcutPath = Join-Path $desktopPath "Ancaman Antivirus.lnk"
+$userDesktop = [Environment]::GetFolderPath("Desktop")
+$commonDesktop = [Environment]::GetFolderPath("CommonDesktopDirectory")
+
+# Bersihkan duplikat shortcut lama
+Remove-Item -Path "$userDesktop\Ancaman*.lnk" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "$commonDesktop\Ancaman*.lnk" -Force -ErrorAction SilentlyContinue
+
+$shortcutPath = Join-Path $userDesktop "Ancaman Antivirus.lnk"
 
 $shell    = New-Object -ComObject WScript.Shell
 $shortcut = $shell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath       = "$installDir\ancaman-gui.exe"
 $shortcut.WorkingDirectory = $installDir
-$shortcut.Description      = "Antivirus Ancaman Enterprise"
+$shortcut.IconLocation     = "$installDir\ancaman.ico,0"
+$shortcut.Description      = "Antivirus Ancaman Enterprise v0.2.0 PQC"
 $shortcut.Save()
 
-Write-Host "  OK - Shortcut dibuat di Desktop." -ForegroundColor Green
+Write-Host "  OK - Shortcut tunggal berhasil dibuat di Desktop." -ForegroundColor Green
 
-# ── 7. Daftarkan Auto-Start saat Windows Boot ─────────────
+# ── 7. Daftarkan Menu Klik Kanan Windows Explorer (Context Menu) ─────────────
 Write-Host ""
-Write-Host "[7/7] Mendaftarkan Auto-Start saat Windows boot..." -ForegroundColor Green
+Write-Host "[7/7] Mendaftarkan menu klik kanan Windows Explorer (Scan with Ancaman)..." -ForegroundColor Green
 
-try {
-    # 1. Daftarkan di Registry Run (HKLM - untuk semua pengguna mesin)
-    $regKey = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
-    $regValue = "`"$installDir\ancaman-gui.exe`" --minimized"
-    Set-ItemProperty -Path $regKey -Name "AncamanAntivirus" -Value $regValue -Force
-    Write-Host "  OK - Registry Auto-Start terdaftar (HKLM Run)." -ForegroundColor Green
-} catch {
-    Write-Host "  Peringatan: Gagal menulis Registry Run, menggunakan Startup shortcut..." -ForegroundColor Yellow
+$ctxTargets = @("*", "Directory", "Directory\Background", "Drive")
+$icoLoc = "$installDir\ancaman.ico"
+$cmdStr = "`"$installDir\ancaman.exe`" scan `"%1`" --recursive"
+
+# Daftarkan di HKCU & HKLM menggunakan direct .NET Win32 API (cepat & tidak freeze)
+foreach ($tgt in $ctxTargets) {
+    try {
+        $classes = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey("Software\Classes", $true)
+        if ($classes) {
+            $sub = $classes.CreateSubKey("$tgt\shell\AncamanScan")
+            $sub.SetValue("", "Scan with Ancaman Antivirus")
+            $sub.SetValue("Icon", $icoLoc)
+            $subCmd = $sub.CreateSubKey("command")
+            $subCmd.SetValue("", $cmdStr)
+        }
+    } catch {}
+
+    try {
+        $lmClasses = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey("Software\Classes", $true)
+        if ($lmClasses) {
+            $sub = $lmClasses.CreateSubKey("$tgt\shell\AncamanScan")
+            $sub.SetValue("", "Scan with Ancaman Antivirus")
+            $sub.SetValue("Icon", $icoLoc)
+            $subCmd = $sub.CreateSubKey("command")
+            $subCmd.SetValue("", $cmdStr)
+        }
+    } catch {}
 }
 
-# 2. Daftarkan di folder Startup Windows (Common Startup)
-try {
-    $startupFolder = [Environment]::GetFolderPath("CommonStartup")
-    if (Test-Path $startupFolder) {
-        $startupLnk = Join-Path $startupFolder "Ancaman Antivirus.lnk"
-        $startupShortcut = $shell.CreateShortcut($startupLnk)
-        $startupShortcut.TargetPath       = "$installDir\ancaman-gui.exe"
-        $startupShortcut.Arguments        = "--minimized"
-        $startupShortcut.WorkingDirectory = $installDir
-        $startupShortcut.Description      = "Ancaman Antivirus Background Protection"
-        $startupShortcut.Save()
-        Write-Host "  OK - Startup shortcut dibuat di folder Startup Windows." -ForegroundColor Green
-    }
-} catch {}
+Write-Host "  OK - Menu 'Scan with Ancaman Antivirus' aktif dengan Icon Garuda!" -ForegroundColor Green
 
 # ── Selesai ───────────────────────────────────────────────
 Write-Host ""
@@ -213,14 +231,14 @@ Write-Host "  =========================================" -ForegroundColor Cyan
 Write-Host "   INSTALASI SELESAI!                      " -ForegroundColor Green
 Write-Host "  =========================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "  STATUS SISTEM:" -ForegroundColor White
-Write-Host "  -> Auto-Start Windows Boot: AKTIF (Berjalan di System Tray otomatis saat boot)" -ForegroundColor Green
-Write-Host "  -> System Tray Icon: AKTIF (Real-Time Protection menjaga di Taskbar)" -ForegroundColor Green
-Write-Host ""
 Write-Host "  CARA PAKAI:" -ForegroundColor White
-Write-Host "  -> Double-click shortcut 'Ancaman Antivirus' di Desktop untuk membuka tampilan" -ForegroundColor Yellow
-Write-Host "  -> Klik kanan icon perisai di System Tray taskbar untuk menu cepat" -ForegroundColor Yellow
+Write-Host "  -> Double-click shortcut 'Ancaman Antivirus' di Desktop" -ForegroundColor Yellow
+Write-Host "  -> TIDAK perlu install Windows Service secara manual" -ForegroundColor Yellow
+Write-Host "  -> Server backend berjalan otomatis di background" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "  CATATAN VMWARE:" -ForegroundColor White
+Write-Host "  -> App otomatis deteksi VM dan aktifkan software rendering" -ForegroundColor Cyan
+Write-Host "  -> Pastikan WebView2 Runtime sudah terinstall di VM" -ForegroundColor Cyan
 Write-Host ""
 
 pause
-

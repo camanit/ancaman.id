@@ -109,14 +109,13 @@ rule ANCAMAN_Ransomware_LockBit {
         category    = "ransomware"
 
     strings:
-        $lb1    = "LockBit"            ascii wide nocase
+        $lb1    = "Lockbit_ransom_note" ascii nocase
         $lb2    = ".lockbit"           ascii nocase
-        $lb3    = "Lockbit_ransom_note" ascii nocase
-        $lb4    = "LOCKBIT"            ascii
-        $lb5    = "lockbit3"           ascii nocase
+        $lb3    = "restore-my-files.txt" ascii nocase
+        $lb4    = "lockbit3.0"          ascii nocase
 
     condition:
-        2 of them
+        uint16(0) == 0x5A4D and any of them
 }
 
 rule ANCAMAN_Ransomware_Ryuk {
@@ -129,11 +128,11 @@ rule ANCAMAN_Ransomware_Ryuk {
     strings:
         $r1     = "RyukReadMe"         ascii nocase
         $r2     = ".ryk"               ascii nocase
-        $r3     = "RYUK"               ascii
-        $r4     = "No system is safe"  ascii nocase
+        $r3     = "No system is safe"  ascii nocase
+        $r4     = "Ryuk Ransomware"    ascii nocase
 
     condition:
-        any of them
+        uint16(0) == 0x5A4D and any of them
 }
 
 rule ANCAMAN_Ransomware_Conti {

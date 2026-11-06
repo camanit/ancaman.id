@@ -1,5 +1,5 @@
 @echo off
-:: Antivirus Ancaman — 1-Click Installer
+:: Antivirus Ancaman â€” 1-Click Installer
 title Ancaman Antivirus Installer
 cd /d "%~dp0"
 
@@ -17,7 +17,13 @@ echo   ANTIVIRUS ANCAMAN - Memulai Instalasi...
 echo  =========================================
 echo.
 
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0data\install.ps1"
+if exist "%~dp0install.ps1" (
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0install.ps1"
+) else if exist "%~dp0data\install.ps1" (
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0data\install.ps1"
+) else (
+    echo [ERROR] File install.ps1 tidak ditemukan di %~dp0
+)
 
 echo.
 pause

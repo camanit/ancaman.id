@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Antivirus Ancaman - Ekosistem Proteksi Siber Kedaulatan Indonesia Berteknologi AI Generatif & Kernel Mini-filter.">
+  <meta name="description"
+    content="Antivirus Ancaman - Ekosistem Proteksi Siber Kedaulatan Indonesia Berteknologi AI Generatif & Kernel Mini-filter.">
   <title>Antivirus Ancaman — Kedaulatan Proteksi Siber Indonesia</title>
-  
+
   <!-- Modern Inter Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
   <style>
     /* Design Tokens */
     :root {
@@ -32,12 +35,19 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: var(--font-inter);
       overflow-x: hidden;
       line-height: 1.6;
+      width: 100%;
+      min-width: 320px;
     }
 
     /* Glassmorphic Background Glows */
@@ -52,18 +62,31 @@
       pointer-events: none;
     }
 
-    .glow-1 { top: 10%; left: -10%; }
-    .glow-2 { top: 50%; right: -10%; }
-    .glow-3 { bottom: 5%; left: 20%; }
+    .glow-1 {
+      top: 10%;
+      left: -10%;
+    }
+
+    .glow-2 {
+      top: 50%;
+      right: -10%;
+    }
+
+    .glow-3 {
+      bottom: 5%;
+      left: 20%;
+    }
 
     /* Navigation Bar */
     header {
       position: sticky;
       top: 0;
-      background: rgba(10, 15, 29, 0.7);
+      background: rgba(10, 15, 29, 0.85);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-color);
       z-index: 100;
+      transition: background-color 0.3s ease;
     }
 
     .nav-container {
@@ -85,21 +108,24 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      text-decoration: none;
+      flex-shrink: 0;
     }
 
     .logo-shield {
       width: 24px;
       height: 24px;
       fill: var(--primary-cyan);
+      flex-shrink: 0;
     }
 
-    nav ul {
+    .desktop-nav ul {
       display: flex;
       list-style: none;
       gap: 2rem;
     }
 
-    nav ul li a {
+    .desktop-nav ul li a {
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.95rem;
@@ -107,7 +133,7 @@
       transition: color 0.3s ease;
     }
 
-    nav ul li a:hover {
+    .desktop-nav ul li a:hover {
       color: var(--primary-cyan);
     }
 
@@ -122,13 +148,14 @@
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.3s ease;
       text-decoration: none;
+      white-space: nowrap;
     }
-
 
     .nav-actions {
       display: flex;
       align-items: center;
       gap: 1.25rem;
+      flex-shrink: 0;
     }
 
     .lang-switch {
@@ -139,6 +166,7 @@
       border-radius: 9999px;
       padding: 0.2rem 0.4rem;
       gap: 0.25rem;
+      flex-shrink: 0;
     }
 
     .lang-btn {
@@ -167,6 +195,55 @@
     .btn-download-nav:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+    }
+
+    /* Mobile Menu Toggle Button */
+    .mobile-menu-btn {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 9px 8px;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .mobile-menu-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--primary-cyan);
+    }
+
+    .hamburger-line {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text-main);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.2s ease;
+    }
+
+    .mobile-menu-btn.active .hamburger-line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-menu-btn.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active .hamburger-line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Drawer */
+    .mobile-nav-drawer {
+      display: none;
     }
 
     /* Hero Section */
@@ -659,7 +736,7 @@
       background: rgba(6, 182, 212, 0.1);
     }
 
-    
+
     /* Payment Info Box */
     .payment-info-box {
       margin-top: 3.5rem;
@@ -894,8 +971,757 @@
       justify-content: flex-end;
       background: rgba(10, 15, 29, 0.5);
     }
+
+    /* =========================================================
+       RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
+       ========================================================= */
+    @media (max-width: 868px) {
+      /* Glow background constraint */
+      .glow-bg {
+        width: 240px;
+        height: 240px;
+        filter: blur(60px);
+      }
+
+      /* Header & Nav */
+      .nav-container {
+        padding: 0.85rem 1.25rem;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+      }
+
+      .logo-shield {
+        width: 22px;
+        height: 22px;
+      }
+
+      .desktop-nav {
+        display: none !important;
+      }
+
+      .nav-desktop-cta {
+        display: none !important;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .nav-actions {
+        gap: 0.6rem;
+      }
+
+      .lang-switch {
+        padding: 0.15rem 0.35rem;
+        gap: 0.15rem;
+      }
+
+      .lang-btn {
+        font-size: 0.72rem;
+        padding: 0.2rem 0.5rem;
+      }
+
+      /* Mobile Navigation Drawer */
+      .mobile-nav-drawer {
+        display: block;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.3s ease;
+        background: rgba(10, 15, 29, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(6, 182, 212, 0.25);
+        padding: 0 1.25rem;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      }
+
+      .mobile-nav-drawer.open {
+        max-height: 420px;
+        opacity: 1;
+        pointer-events: auto;
+        padding: 1.25rem 1.25rem 1.75rem 1.25rem;
+      }
+
+      .mobile-nav-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 1.25rem;
+        padding: 0;
+      }
+
+      .mobile-nav-links li a {
+        display: block;
+        padding: 0.85rem 0.25rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #cbd5e1;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+
+      .mobile-nav-links li a:active,
+      .mobile-nav-links li a:hover {
+        color: var(--primary-cyan);
+        transform: translateX(4px);
+      }
+
+      .mobile-drawer-cta {
+        display: flex;
+        width: 100%;
+      }
+
+      .mobile-drawer-cta .btn-primary {
+        width: 100%;
+        justify-content: center;
+        padding: 0.85rem 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 4.5rem 1.25rem 3.5rem 1.25rem;
+      }
+
+      .hero-tag {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.85rem;
+        margin-bottom: 1.25rem;
+        letter-spacing: 0.04rem;
+        line-height: 1.4;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 7vw, 3.2rem);
+        line-height: 1.2;
+        margin-bottom: 1.25rem;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
+
+      .hero p {
+        font-size: 0.98rem;
+        line-height: 1.6;
+        margin-bottom: 2.25rem;
+        padding: 0;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        gap: 0.85rem;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 0.9rem 1.5rem;
+        font-size: 0.98rem;
+      }
+
+      /* Section Common Paddings & Headers */
+      .features,
+      .ecosystem,
+      .pricing,
+      .download-hub {
+        padding: 4rem 1.25rem;
+      }
+
+      .section-header {
+        margin-bottom: 2.5rem;
+      }
+
+      .section-header h2,
+      .ecosystem h2 {
+        font-size: 1.85rem;
+        line-height: 1.25;
+      }
+
+      .section-header p,
+      .ecosystem p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      /* Features Grid */
+      .grid-features {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .feature-card {
+        padding: 1.75rem 1.25rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .feature-card p {
+        font-size: 0.9rem;
+      }
+
+      /* Ecosystem / Partner Grid */
+      .ecosystem p {
+        margin-bottom: 2.5rem;
+      }
+
+      .partner-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 1rem;
+      }
+
+      .partner-icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      .partner-logo {
+        font-size: 0.88rem;
+        text-align: center;
+        gap: 0.5rem;
+      }
+
+      /* Pricing Grid */
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .pricing-card {
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+      }
+
+      .badge-featured {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.9rem;
+        top: -12px;
+      }
+
+      .pricing-amount {
+        font-size: 2.1rem;
+      }
+
+      .pricing-features {
+        margin-bottom: 2rem;
+        gap: 0.75rem;
+      }
+
+      .pricing-features li {
+        font-size: 0.9rem;
+      }
+
+      /* Payment Box */
+      .payment-info-box {
+        margin-top: 2.5rem;
+        padding: 1.5rem 1.25rem;
+        border-radius: 16px;
+      }
+
+      .payment-badge {
+        font-size: 0.78rem;
+        padding: 0.3rem 0.75rem;
+        margin-bottom: 1.25rem;
+        white-space: normal;
+        line-height: 1.4;
+      }
+
+      .payment-content-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .payment-card-bank {
+        padding: 1.25rem 1rem;
+      }
+
+      .bank-number-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .bank-acc-number {
+        font-size: 1.45rem;
+        letter-spacing: 0.05rem;
+      }
+
+      .btn-copy-acc {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+      }
+
+      .bank-holder {
+        font-size: 0.9rem;
+      }
+
+      .wa-label {
+        font-size: 1.1rem;
+      }
+
+      .wa-desc {
+        font-size: 0.9rem;
+      }
+
+      .btn-wa-action {
+        width: 100%;
+        padding: 0.9rem 1.25rem;
+        font-size: 0.92rem;
+        text-align: center;
+        word-break: break-word;
+      }
+
+      /* Download Grid */
+      .download-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+      }
+
+      .download-card {
+        padding: 2.25rem 1.25rem;
+      }
+
+      .btn-download-card {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+      }
+
+      /* Footer */
+      footer {
+        padding: 3rem 1.25rem;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 0.85rem;
+        align-items: center;
+      }
+
+      /* Modal */
+      .legal-modal-backdrop {
+        padding: 1rem;
+      }
+
+      .legal-modal-content {
+        max-height: 88vh;
+        border-radius: 16px;
+      }
+
+      .modal-header {
+        padding: 1rem 1.25rem;
+      }
+
+      .modal-body {
+        padding: 1.25rem;
+        font-size: 0.88rem;
+      }
+
+      .modal-footer {
+        padding: 0.75rem 1.25rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero h1 {
+        font-size: 1.85rem;
+      }
+
+      .bank-acc-number {
+        font-size: 1.22rem;
+      }
+
+      .pricing-amount {
+        font-size: 1.85rem;
+      }
+
+      .partner-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 0.5rem;
+      }
+
+      .partner-logo {
+        font-size: 0.82rem;
+      }
+
+      .btn-wa-action {
+        font-size: 0.85rem;
+        padding: 0.8rem 0.75rem;
+      }
+    }
+
+    /* =========================================================
+       ZENTYQUETRY-STYLE QUANTUM EMBLEM, LIVE PILLS & PQC MODULES
+       ========================================================= */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.25); }
+    }
+
+    .brand-version-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.18rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(6, 182, 212, 0.14);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: var(--primary-cyan);
+      letter-spacing: 0.05rem;
+      text-transform: uppercase;
+      -webkit-text-fill-color: var(--primary-cyan);
+    }
+
+    .hero-emblem-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.35rem;
+    }
+
+    .hero-emblem-inner {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-emblem-glow {
+      position: absolute;
+      width: 92px;
+      height: 92px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.38) 0%, rgba(16, 185, 129, 0.22) 60%, transparent 72%);
+      border-radius: 50%;
+      filter: blur(12px);
+    }
+
+    .hero-emblem-box {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.18), rgba(16, 185, 129, 0.22));
+      border: 1px solid rgba(6, 182, 212, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 26px rgba(6, 182, 212, 0.35);
+      backdrop-filter: blur(10px);
+      z-index: 2;
+    }
+
+    .live-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 0 auto 1.6rem auto;
+      max-width: 920px;
+    }
+
+    .live-status-label {
+      font-size: 0.7rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 9999px;
+      padding: 3px 11px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .live-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: pulse-dot 1.8s infinite;
+    }
+
+    .metrics-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 1060px;
+      margin-top: 3.5rem;
+    }
+
+    .metric-card {
+      background: rgba(18, 26, 47, 0.65);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.4rem 1rem;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .metric-card:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .metric-val {
+      font-size: 1.85rem;
+      font-weight: 800;
+      background: var(--primary-neon);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* SNDL Mosca Simulator & CBOM Interactive Section */
+    .pqc-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .sndl-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 2rem;
+      background: var(--bg-card);
+      border: 1px solid rgba(6, 182, 212, 0.28);
+      border-radius: 20px;
+      padding: 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .preset-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .preset-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .preset-btn:hover, .preset-btn.active {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--primary-cyan);
+      color: var(--primary-cyan);
+    }
+
+    .slider-box {
+      background: rgba(10, 15, 29, 0.7);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .slider-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .slider-val-badge {
+      color: var(--primary-cyan);
+      font-weight: 800;
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+
+    .slider-box input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary-cyan);
+      cursor: pointer;
+    }
+
+    .mosca-result-box {
+      background: rgba(10, 15, 29, 0.85);
+      border: 1.5px solid rgba(239, 68, 68, 0.45);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .mosca-result-box.safe {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    .mosca-formula {
+      font-family: monospace;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+    }
+
+    .mosca-status-pill {
+      display: inline-block;
+      margin: 0 auto 1rem auto;
+      padding: 0.4rem 1.2rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.06rem;
+      text-transform: uppercase;
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+
+    .mosca-status-pill.safe {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    /* CBOM Live Preview Table & Roadmap Cards */
+    .cbom-preview-card {
+      margin-top: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      overflow-x: auto;
+    }
+
+    .cbom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .cbom-table th, .cbom-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cbom-table th {
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
+    }
+
+    .status-chip {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .chip-vuln {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    .chip-hybrid {
+      background: rgba(6, 182, 212, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.35);
+    }
+
+    .chip-safe {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .pqc-roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.75rem;
+      margin-top: 3rem;
+    }
+
+    .roadmap-phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .roadmap-phase-card:hover {
+      border-color: var(--primary-cyan);
+      transform: translateY(-4px);
+    }
+
+    .phase-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary-cyan);
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 868px) {
+      .metrics-banner {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 2.5rem;
+      }
+      .sndl-grid {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1.25rem;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <!-- Background Ambient Lights -->
@@ -904,17 +1730,21 @@
   <div class="glow-bg glow-3"></div>
 
   <!-- Header Navigation -->
-  <header>
+  <header id="mainHeader">
     <div class="nav-container">
-      <div class="logo">
+      <a href="#" class="logo">
         <svg class="logo-shield" viewBox="0 0 24 24">
-          <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm0 2.18l7 2.33v4.5c0 4.19-2.91 8.08-7 9.02-4.09-.94-7-4.83-7-9.02v-4.5l7-2.33z"/>
+          <path
+            d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm0 2.18l7 2.33v4.5c0 4.19-2.91 8.08-7 9.02-4.09-.94-7-4.83-7-9.02v-4.5l7-2.33z" />
         </svg>
-        ANCAMAN
-      </div>
-      <nav>
+        <span>ANCAMAN</span>
+        <span class="version-pill-nav">v0.2.0 PQC</span>
+      </a>
+      <nav class="desktop-nav">
         <ul>
           <li><a href="#fitur" data-i18n="nav_features">Fitur Proteksi</a></li>
+          <li><a href="#pqc-simulator" data-i18n="nav_pqc">Simulasi PQC & CBOM</a></li>
+          <li><a href="#arsitektur" data-i18n="nav_arch">Arsitektur</a></li>
           <li><a href="#solusi" data-i18n="nav_solutions">Solusi Industri</a></li>
           <li><a href="#harga" data-i18n="nav_pricing">Paket Harga</a></li>
           <li><a href="#unduhan" data-i18n="nav_download">Unduh</a></li>
@@ -926,100 +1756,385 @@
           <button id="btn-lang-id" class="lang-btn active" onclick="setLanguage('id')">ID</button>
           <button id="btn-lang-en" class="lang-btn" onclick="setLanguage('en')">EN</button>
         </div>
-        <a href="#unduhan" class="btn-download-nav" data-i18n="nav_cta">Unduh Sekarang</a>
+        <a href="#unduhan" class="btn-download-nav nav-desktop-cta" data-i18n="nav_cta">Unduh Sekarang</a>
+        
+        <!-- Mobile Hamburger Toggle Button -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Menu Navigasi" onclick="toggleMobileMenu()">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation Drawer -->
+    <div id="mobileNavDrawer" class="mobile-nav-drawer">
+      <ul class="mobile-nav-links">
+        <li><a href="#fitur" onclick="closeMobileMenu()" data-i18n="nav_features">Fitur Proteksi</a></li>
+        <li><a href="#pqc-simulator" onclick="closeMobileMenu()" data-i18n="nav_pqc">Simulasi PQC & CBOM</a></li>
+        <li><a href="#arsitektur" onclick="closeMobileMenu()" data-i18n="nav_arch">Arsitektur</a></li>
+        <li><a href="#solusi" onclick="closeMobileMenu()" data-i18n="nav_solutions">Solusi Industri</a></li>
+        <li><a href="#harga" onclick="closeMobileMenu()" data-i18n="nav_pricing">Paket Harga</a></li>
+        <li><a href="#unduhan" onclick="closeMobileMenu()" data-i18n="nav_download">Unduh</a></li>
+      </ul>
+      <div class="mobile-drawer-cta">
+        <a href="#unduhan" onclick="closeMobileMenu()" class="btn-primary" data-i18n="nav_cta">Unduh Sekarang</a>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-tag" data-i18n="hero_tag">Next-Gen Enterprise EDR & XDR Platform</div>
-    <h1 data-i18n="hero_title">Kedaulatan Proteksi Siber dengan <span>Teknologi AI & Kernel Mini-filter</span></h1>
-    <p data-i18n="hero_desc">Antivirus Ancaman menghadirkan sistem pertahanan tingkat tinggi berbasis kedaulatan digital mandiri yang terhubung ke jaringan intelijen AI global untuk menangkal segala malware, trojan perbankan, ransomware, hingga serangan terarah (APT).</p>
+    <!-- ZentyQuetry-inspired Quantum Shield Emblem -->
+    <div class="hero-emblem-wrap" title="Ancaman Quantum-Safe EDR & CBOM Engine">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm0 2.18l7 2.33v4.5c0 4.19-2.91 8.08-7 9.02-4.09-.94-7-4.83-7-9.02v-4.5l7-2.33zm-1 3.82v3H8v2h3v3h2v-3h3v-2h-3V8h-2z" />
+      </svg>
+    </div>
+
+    <div class="hero-tag" data-i18n="hero_tag">Next-Gen Quantum-Safe EDR, XDR & CBOM Platform</div>
+
+    <!-- Live Ecosystem Integration Bar (aligned with ZentyQuetry) -->
+    <div class="hero-live-bar">
+      <span class="live-label">LIVE:</span>
+      <span class="live-pill cyan"><span class="dot"></span> <span data-i18n="live_pill_1">NIST FIPS 203/204 Hybrid PQC</span></span>
+      <span class="live-pill emerald"><span class="dot"></span> <span data-i18n="live_pill_2">GPlay AI DataBank</span></span>
+      <span class="live-pill purple"><span class="dot"></span> <span data-i18n="live_pill_3">ZentyQuetry CBOM Bridge</span></span>
+      <span class="live-pill cyan"><span class="dot"></span> <span data-i18n="live_pill_4">ZentyTeamsCore WORM</span></span>
+      <span class="live-pill amber"><span class="dot"></span> <span data-i18n="live_pill_5">BSSN STIX 2.1 / TAXII</span></span>
+    </div>
+
+    <h1 data-i18n="hero_title">Kedaulatan Proteksi Siber dengan <span>AI, Kernel Mini-filter & Kriptografi Pasca-Kuantum</span></h1>
+    <p data-i18n="hero_desc">Antivirus Ancaman menghadirkan pertahanan endpoint berdaulat yang menggabungkan deteksi AI & Kernel Mini-filter dengan pemindaian Cryptographic Bill of Materials (CBOM) lokal serta kanal telemetri hibrida tahan-kuantum (NIST FIPS 203 ML-KEM & FIPS 204 ML-DSA) untuk menangkal malware, ransomware, APT, hingga ancaman Store-Now-Decrypt-Later (SNDL).</p>
     <div class="hero-ctas">
       <a href="#unduhan" class="btn-primary" id="hero-btn-primary">
         <span data-i18n="hero_cta_primary">Mulai Proteksi Sekarang</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
       </a>
-      <a href="#fitur" class="btn-secondary" data-i18n="hero_cta_secondary">Pelajari Fitur</a>
+      <a href="#pqc-simulator" class="btn-secondary" data-i18n="hero_cta_secondary">Simulasi Risiko Kuantum & CBOM</a>
+    </div>
+
+    <!-- Quick Metrics Banner -->
+    <div class="hero-metrics-banner">
+      <div class="hero-metric-card">
+        <span class="hero-metric-val">&lt; 5ms</span>
+        <span class="hero-metric-lbl" data-i18n="metric_1_lbl">Intersepsi Kernel & YARA-X</span>
+      </div>
+      <div class="hero-metric-card">
+        <span class="hero-metric-val">FIPS 203/204</span>
+        <span class="hero-metric-lbl" data-i18n="metric_2_lbl">Hybrid PQC (ML-KEM + Ed25519)</span>
+      </div>
+      <div class="hero-metric-card">
+        <span class="hero-metric-val">CycloneDX 1.6</span>
+        <span class="hero-metric-lbl" data-i18n="metric_3_lbl">Audit CBOM & Kripto Lemah Lokal</span>
+      </div>
+      <div class="hero-metric-card">
+        <span class="hero-metric-val">100%</span>
+        <span class="hero-metric-lbl" data-i18n="metric_4_lbl">Kedaulatan Offline & Anti-Ransomware</span>
+      </div>
     </div>
   </section>
 
   <!-- Features Section -->
   <section class="features" id="fitur">
     <div class="section-header">
-      <h2 data-i18n="features_header_title">Teknologi Pertahanan Siber Berlapis</h2>
-      <p data-i18n="features_header_desc">Mengintegrasikan sistem operasi, kecerdasan buatan, dan korelasi data telemetri global.</p>
+      <h2 data-i18n="features_header_title">9 Lapisan Teknologi Pertahanan Siber & Pasca-Kuantum</h2>
+      <p data-i18n="features_header_desc">Mengintegrasikan intersepsi kernel sistem operasi, kecerdasan buatan, audit kriptografi CBOM lokal, dan korelasi telemetri hibrida PQC.</p>
     </div>
-    
+
     <div class="grid-features">
       <!-- Feature 1: AI Heuristics -->
       <div class="feature-card">
         <div class="icon-wrapper">
           <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z"/>
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z" />
           </svg>
         </div>
         <h3 data-i18n="feat_1_title">Heuristik AI Tingkat Lanjut</h3>
-        <p data-i18n="feat_1_desc">Mendeteksi malware tanpa signature menggunakan model probabilitas sigmoid kecerdasan buatan. Mengidentifikasi perilaku anomali sebelum kerusakan terjadi.</p>
+        <p data-i18n="feat_1_desc">Mendeteksi malware tanpa signature menggunakan model probabilitas sigmoid kecerdasan
+          buatan. Mengidentifikasi perilaku anomali sebelum kerusakan terjadi.</p>
       </div>
 
       <!-- Feature 2: Kernel Driver -->
       <div class="feature-card">
         <div class="icon-wrapper">
           <svg viewBox="0 0 24 24">
-            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/>
+            <path
+              d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z" />
           </svg>
         </div>
         <h3 data-i18n="feat_2_title">Kernel Mini-filter Driver</h3>
-        <p data-i18n="feat_2_desc">Bekerja langsung di level sistem operasi kernel Windows untuk menyaring I/O berkas real-time dan melacak ancaman tamper/kill process secara tangguh.</p>
+        <p data-i18n="feat_2_desc">Bekerja langsung di level sistem operasi kernel Windows untuk menyaring I/O berkas
+          real-time dan melacak ancaman tamper/kill process secara tangguh.</p>
       </div>
 
       <!-- Feature 3: Ransomware Rollback -->
       <div class="feature-card">
         <div class="icon-wrapper">
           <svg viewBox="0 0 24 24">
-            <path d="M12.5 8c-2.65 0-5.05 1-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+            <path
+              d="M12.5 8c-2.65 0-5.05 1-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z" />
           </svg>
         </div>
         <h3 data-i18n="feat_3_title">Proteksi & Rollback Ransomware</h3>
-        <p data-i18n="feat_3_desc">Mendeteksi aktivitas enkripsi ilegal secara otomatis dalam hitungan milidetik, mengisolasi ancaman, dan memulihkan berkas via snapshot bayangan lokal.</p>
+        <p data-i18n="feat_3_desc">Mendeteksi aktivitas enkripsi ilegal secara otomatis dalam hitungan milidetik,
+          mengisolasi ancaman, dan memulihkan berkas via snapshot bayangan lokal.</p>
       </div>
 
       <!-- Feature 4: XDR Capabilities -->
       <div class="feature-card">
         <div class="icon-wrapper">
           <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
           </svg>
         </div>
         <h3 data-i18n="feat_4_title">Korelasi Ancaman Lintas Endpoint (XDR)</h3>
-        <p data-i18n="feat_4_desc">Mengkorelasikan log telemetri dari banyak perangkat secara dinamis untuk menghentikan skenario pergerakan lateral malware dan botnet secara otomatis.</p>
+        <p data-i18n="feat_4_desc">Mengkorelasikan log telemetri dari banyak perangkat secara dinamis untuk menghentikan
+          skenario pergerakan lateral malware dan botnet secara otomatis.</p>
       </div>
 
       <!-- Feature 5: Threat Intel STIX 2.1 -->
       <div class="feature-card">
         <div class="icon-wrapper">
           <svg viewBox="0 0 24 24">
-            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
           </svg>
         </div>
         <h3 data-i18n="feat_5_title">Cyber Threat Intelligence (STIX 2.1 / TAXII)</h3>
-        <p data-i18n="feat_5_desc">Mengintegrasikan feed intelijen ancaman berstandar internasional STIX 2.1 dan protokol TAXII secara otomatis untuk pengayaan IoC dan deteksi proaktif perimeter.</p>
+        <p data-i18n="feat_5_desc">Mengintegrasikan feed intelijen ancaman berstandar internasional STIX 2.1 dan
+          protokol TAXII secara otomatis untuk pengayaan IoC dan deteksi proaktif perimeter.</p>
       </div>
 
       <!-- Feature 6: Community SDK -->
       <div class="feature-card">
         <div class="icon-wrapper">
           <svg viewBox="0 0 24 24">
-            <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.6z"/>
+            <path
+              d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.6z" />
           </svg>
         </div>
         <h3 data-i18n="feat_6_title">Asisten AI & Komunitas SDK</h3>
-        <p data-i18n="feat_6_desc">Asisten remedi AI interaktif untuk memandu mitigasi insiden siber secara cepat, didukung Plugin SDK untuk integrasi sensor pihak ketiga.</p>
+        <p data-i18n="feat_6_desc">Asisten remedi AI interaktif untuk memandu mitigasi insiden siber secara cepat,
+          didukung Plugin SDK untuk integrasi sensor pihak ketiga.</p>
+      </div>
+
+      <!-- Feature 7: Local CBOM & Weak Crypto Scanner (NEW - Tambahan Ancaman) -->
+      <div class="feature-card" style="border-color: rgba(168, 85, 247, 0.35);">
+        <div class="icon-wrapper" style="background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.3);">
+          <svg viewBox="0 0 24 24" style="fill: #c084fc;">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+          </svg>
+        </div>
+        <h3 data-i18n="feat_7_title">Pemindai CBOM & Audit Kriptografi Lemah Lokal</h3>
+        <p data-i18n="feat_7_desc">Memindai biner (.exe, .dll, .sys) dan sertifikat lokal untuk mendeteksi algoritma usang (RSA &lt; 2048-bit, ECC klasik, SHA-1, MD5) yang rentan terhadap komputer kuantum (Shor's Algorithm), serta mengekspor Cryptographic Bill of Materials (CycloneDX 1.6).</p>
+      </div>
+
+      <!-- Feature 8: Hybrid PQC Telemetry Channel (NEW - Tambahan Ancaman) -->
+      <div class="feature-card" style="border-color: rgba(6, 182, 212, 0.35);">
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.66 0 3 1.34 3 3v1h1v6H8v-6h1v-1c0-1.66 1.34-3 3-3zm0 1.5c-.83 0-1.5.67-1.5 1.5v1h3v-1c0-.83-.67-1.5-1.5-1.5z" />
+          </svg>
+        </div>
+        <h3 data-i18n="feat_8_title">Telemetri Hibrida PQC (NIST FIPS 203 & 204)</h3>
+        <p data-i18n="feat_8_desc">Menggabungkan kunci Ed25519 dengan algoritma pasca-kuantum standar NIST (ML-KEM-768 / Kyber & ML-DSA-65 / Dilithium) untuk mengamankan komunikasi agen-ke-server, log XDR, dan feed STIX 2.1 dari sadapan Store-Now-Decrypt-Later (SNDL).</p>
+      </div>
+
+      <!-- Feature 9: Fleet CBOM & Quantum Compliance (NEW - ZentyQuetry Alignment) -->
+      <div class="feature-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div class="icon-wrapper" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3);">
+          <svg viewBox="0 0 24 24" style="fill: #34d399;">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+          </svg>
+        </div>
+        <h3 data-i18n="feat_9_title">Dashboard Pusat CBOM & Kepatuhan Kuantum</h3>
+        <p data-i18n="feat_9_desc">Menyajikan visibilitas penuh di Central Server Manager atas indeks kesiapan kuantum seluruh armada endpoint, kalkulator risiko Teorema Mosca (Y + X &gt; Z), serta pelaporan kepatuhan standar BSSN, ISO/IEC 27001, dan NIST SP 800-208.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive PQC Mosca Simulator & Local CBOM Preview Section (ZentyQuetry Reference) -->
+  <section class="pqc-section" id="pqc-simulator">
+    <div class="section-header">
+      <div class="hero-tag" data-i18n="pqc_sec_tag" style="margin-bottom: 1rem;">Kesiapan Pasca-Kuantum & Audit CBOM Endpoint</div>
+      <h2 data-i18n="pqc_sec_title">Simulasi Risiko Kuantum (Teorema Mosca) & Inventaris CBOM Lokal</h2>
+      <p data-i18n="pqc_sec_desc">Uji eksposur Store-Now-Decrypt-Later (SNDL) organisasi Anda dan lihat bagaimana agen Antivirus Ancaman menginventarisasi algoritma kriptografi di setiap endpoint secara otomatis.</p>
+    </div>
+
+    <div class="sndl-grid">
+      <!-- Left: Controls -->
+      <div>
+        <span style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--primary-cyan); display: block; margin-bottom: 0.5rem;" data-i18n="mosca_badge">KALKULATOR TEOREMA MOSCA (Y + X &gt; Z)</span>
+        <h3 style="font-size: 1.45rem; font-weight: 800; margin-bottom: 0.65rem;" data-i18n="mosca_title">Apakah Data Endpoint & Telemetri Anda Aman dari Q-Day?</h3>
+        <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;" data-i18n="mosca_subtitle">Jika masa simpan rahasia data (Y) ditambah waktu migrasi infrastruktur PQC (X) melebihi estimasi kedatangan komputer kuantum kriptanalitis (Z), maka data yang disadap hari ini akan terbongkar.</p>
+
+        <div class="preset-btns">
+          <button type="button" class="preset-btn active" id="preset-bank" onclick="setMoscaPreset(10, 4, 8, 'bank')" data-i18n="preset_bank">🏦 Perbankan & Finansial</button>
+          <button type="button" class="preset-btn" id="preset-gov" onclick="setMoscaPreset(15, 5, 8, 'gov')" data-i18n="preset_gov">🏛️ Infrastruktur Kritis / BSSN</button>
+          <button type="button" class="preset-btn" id="preset-mil" onclick="setMoscaPreset(20, 3, 7, 'mil')" data-i18n="preset_mil">🛡️ Pertahanan & Air-Gapped</button>
+          <button type="button" class="preset-btn" id="preset-corp" onclick="setMoscaPreset(3, 2, 10, 'corp')" data-i18n="preset_corp">🏢 Korporasi Standar</button>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span data-i18n="slider_y_lbl">Y — Masa Kerahasiaan Data (Shelf-Life)</span>
+            <span class="slider-val"><span id="val-y">10</span> <span data-i18n="unit_years">Tahun</span></span>
+          </div>
+          <input type="range" id="input-y" min="1" max="25" value="10" oninput="updateMoscaSimulator()">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span data-i18n="slider_x_lbl">X — Waktu Migrasi Kriptografi Endpoint (CBOM → PQC)</span>
+            <span class="slider-val"><span id="val-x">4</span> <span data-i18n="unit_years">Tahun</span></span>
+          </div>
+          <input type="range" id="input-x" min="1" max="15" value="4" oninput="updateMoscaSimulator()">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span data-i18n="slider_z_lbl">Z — Estimasi Horison Komputer Kuantum (Q-Day / CRQC)</span>
+            <span class="slider-val"><span id="val-z">8</span> <span data-i18n="unit_years">Tahun</span></span>
+          </div>
+          <input type="range" id="input-z" min="3" max="20" value="8" oninput="updateMoscaSimulator()">
+        </div>
+      </div>
+
+      <!-- Right: Verdict Output -->
+      <div class="mosca-result-panel">
+        <div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700;" data-i18n="mosca_formula_lbl">Evaluasi Persamaan Mosca</div>
+          <div class="mosca-formula-box" id="mosca-formula-display">10 + 4 = 14 &gt; 8</div>
+          <span class="mosca-status-badge critical" id="mosca-badge-display">CRITICAL SNDL EXPOSURE</span>
+          <p style="color: var(--text-main); font-size: 0.92rem; line-height: 1.65; margin-top: 0.5rem;" id="mosca-advice-display">
+            PERINGATAN KRITIS (Y + X &gt; Z): Lalu lintas telemetri dan arsip terenkripsi klasik (RSA-2048 / ECC P-256) yang dipanen penyerang hari ini berisiko didekripsi sebelum masa kerahasiaan data berakhir. Aktifkan kanal Hybrid PQC Antivirus Ancaman (X25519 + NIST ML-KEM-768 FIPS 203 &amp; Ed25519 + ML-DSA-65 FIPS 204) segera.
+          </p>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; align-items: center;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">
+            <strong style="color: #fff;" data-i18n="mosca_shield_lbl">Perisai Aktif Ancaman:</strong> ML-KEM-768 + Ed25519 + AES-256-GCM
+          </div>
+          <button type="button" onclick="downloadSampleCbom()" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 8px; border-color: rgba(6, 182, 212, 0.4); color: var(--primary-cyan); cursor: pointer;">
+            ⬇ <span data-i18n="btn_dl_cbom">Unduh Sampel CBOM (CycloneDX 1.6 JSON)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Local CBOM Inventory Preview -->
+    <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+      <div>
+        <h3 style="font-size: 1.15rem; font-weight: 700;" data-i18n="cbom_preview_title">Contoh Hasil Pemindaian CBOM Lokal pada Endpoint (Modul ancaman-core::pqc_cbom)</h3>
+        <p style="color: var(--text-muted); font-size: 0.86rem;" data-i18n="cbom_preview_sub">Memetakan biner sistem, pustaka TLS, sertifikat X.509, dan protokol agen untuk menemukan kriptografi lemah sebelum dieksploitasi.</p>
+      </div>
+      <span class="cbom-badge pqc">Standar CycloneDX v1.6 &amp; ZentyQuetry</span>
+    </div>
+
+    <div class="cbom-preview-wrap">
+      <table class="cbom-table">
+        <thead>
+          <tr>
+            <th data-i18n="cbom_th_asset">Komponen / Lokasi Berkas</th>
+            <th data-i18n="cbom_th_alg">Algoritma Terdeteksi</th>
+            <th data-i18n="cbom_th_key">Kunci / Kurva</th>
+            <th data-i18n="cbom_th_status">Status Kuantum</th>
+            <th data-i18n="cbom_th_rec">Rekomendasi Remediasi NIST / BSSN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ancaman Hybrid PQC Telemetry</strong><br><span style="font-size:0.78rem;color:var(--text-muted);">crates/ancaman-agent/telemetry_pqc</span></td>
+            <td><code>X25519 + ML-KEM-768 / Ed25519 + ML-DSA-65</code></td>
+            <td>FIPS 203 &amp; FIPS 204</td>
+            <td><span class="cbom-badge pqc" data-i18n="status_pqc">Tahan Kuantum (Hybrid PQC)</span></td>
+            <td style="font-size:0.83rem;color:var(--text-muted);" data-i18n="rec_1">Aman terhadap serangan Store-Now-Decrypt-Later (SNDL).</td>
+          </tr>
+          <tr>
+            <td><strong>Ancaman Quarantine Vault</strong><br><span style="font-size:0.78rem;color:var(--text-muted);">C:\ProgramData\Ancaman\quarantine</span></td>
+            <td><code>AES-256-GCM + BLAKE3-256</code></td>
+            <td>256-bit Symmetric</td>
+            <td><span class="cbom-badge pqc" data-i18n="status_grover">Aman (Grover-Resistant)</span></td>
+            <td style="font-size:0.83rem;color:var(--text-muted);" data-i18n="rec_2">Kunci simetris 256-bit mempertahankan keamanan 128-bit pasca-Grover.</td>
+          </tr>
+          <tr>
+            <td><strong>Legacy Banking Connector DLL</strong><br><span style="font-size:0.78rem;color:var(--text-muted);">C:\Program Files\App\legacy_auth.dll</span></td>
+            <td><code>RSA-1024 + SHA-1 + 3DES</code></td>
+            <td>1024-bit Asymmetric</td>
+            <td><span class="cbom-badge vuln" data-i18n="status_vuln">Rentan Kritis (Shor &amp; Klasik)</span></td>
+            <td style="font-size:0.83rem;color:#fca5a5;" data-i18n="rec_3">Segera cabut sertifikat RSA-1024/SHA-1; migrasikan ke ML-KEM-768 / ML-DSA-65.</td>
+          </tr>
+          <tr>
+            <td><strong>OS SChannel TLS Inspection</strong><br><span style="font-size:0.78rem;color:var(--text-muted);">C:\Windows\System32\schannel.dll</span></td>
+            <td><code>ECDSA P-256 / RSA-2048</code></td>
+            <td>256-bit / 2048-bit</td>
+            <td><span class="cbom-badge warn" data-i18n="status_trans">Transisi (Rentan Shor)</span></td>
+            <td style="font-size:0.83rem;color:var(--text-muted);" data-i18n="rec_4">Aktifkan pertukaran kunci hibrida X25519MLKEM768 pada kebijakan grup TLS 1.3.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Architecture & 3-Phase PQC Roadmap Section (Tambahan Ancaman + ZentyQuetry Ecosystem) -->
+  <section class="pqc-section" id="arsitektur" style="padding-top: 2rem;">
+    <div class="section-header">
+      <div class="hero-tag" data-i18n="arch_tag" style="margin-bottom: 1rem;">Arsitektur & Peta Jalan Kedaulatan Kuantum</div>
+      <h2 data-i18n="arch_title">Peta Jalan Integrasi PQC & Ekosistem Terpadu CTARTech</h2>
+      <p data-i18n="arch_desc">Dirancang selaras dengan standar ZentyQuetry untuk memberikan perlindungan endpoint menyeluruh dari ancaman malware hari ini hingga ancaman dekripsi kuantum masa depan.</p>
+    </div>
+
+    <div class="roadmap-pqc-grid">
+      <!-- Phase 1 -->
+      <div class="roadmap-pqc-card">
+        <span class="roadmap-phase-tag" data-i18n="pqc_p1_tag">FASE 1 • BULAN 1–2 (AKTIF)</span>
+        <h3 data-i18n="pqc_p1_title">Riset & Modul Pemindaian CBOM Lokal</h3>
+        <p data-i18n="pqc_p1_desc">Pemetaan dependensi kriptografi pada kode sumber Rust dan pengembangan modul pemindai pasif untuk mengaudit biner (.exe, .dll, .sys) serta sertifikat lokal yang masih menggunakan algoritma lemah (RSA &lt; 2048-bit, ECC klasik, SHA-1, MD5).</p>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="roadmap-pqc-card">
+        <span class="roadmap-phase-tag" data-i18n="pqc_p2_tag">FASE 2 • BULAN 3–4 (AKTIF)</span>
+        <h3 data-i18n="pqc_p2_title">Integrasi Algoritma Hibrida Standar NIST</h3>
+        <p data-i18n="pqc_p2_desc">Implementasi skema enkapsulasi kunci hibrida X25519 + ML-KEM-768 (FIPS 203) dan tanda tangan digital komposit Ed25519 + ML-DSA-65 (FIPS 204) pada jalur telemetri agen, log XDR, dan distribusi lisensi offline anti-SNDL.</p>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="roadmap-pqc-card">
+        <span class="roadmap-phase-tag" data-i18n="pqc_p3_tag">FASE 3 • BULAN 5–6 (AKTIF)</span>
+        <h3 data-i18n="pqc_p3_title">Dashboard Pusat CBOM & Audit Kepatuhan Kuantum</h3>
+        <p data-i18n="pqc_p3_desc">Pembaruan antarmuka Central Server Manager & React Dashboard dengan tab khusus Quantum PQC & CBOM, ekspor laporan CycloneDX 1.6 satu klik, simulasi Teorema Mosca, dan kepatuhan regulasi BSSN &amp; ISO 27001.</p>
+      </div>
+    </div>
+
+    <!-- 4-Pillar CTARTech Unified Ecosystem -->
+    <div style="margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 1rem;">
+      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: var(--primary-cyan); margin-bottom: 0.35rem;">01 • ANCAMAN EDR/XDR</div>
+        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_1_title">Kernel Sensor & Anti-Ransomware</div>
+        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_1_desc">Intersepsi proses real-time, YARA-X, heuristik AI, dan rollback VSS otomatis di setiap endpoint.</div>
+      </div>
+      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #c084fc; margin-bottom: 0.35rem;">02 • ZENTYQUETRY PQC BRIDGE</div>
+        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_2_title">CycloneDX 1.6 CBOM & FIPS 203/204</div>
+        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_2_desc">Sinkronisasi inventaris kriptografi endpoint dan mitigasi Store-Now-Decrypt-Later (SNDL).</div>
+      </div>
+      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: var(--primary-emerald); margin-bottom: 0.35rem;">03 • GPLAY AI DATABANK</div>
+        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_3_title">Global Threat & Crypto Intelligence</div>
+        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_3_desc">Pengayaan IoC STIX 2.1/TAXII dan deteksi zero-day berbasis model neural terdistribusi.</div>
+      </div>
+      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #fbbf24; margin-bottom: 0.35rem;">04 • ZENTYTEAMSCORE WORM</div>
+        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_4_title">Immutable Audit & BSSN Compliance</div>
+        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_4_desc">Pencatatan bukti forensik dan kepatuhan regulasi yang ditandatangani secara kriptografis.</div>
       </div>
     </div>
   </section>
@@ -1028,30 +2143,35 @@
   <section class="ecosystem" id="solusi">
     <div class="ecosystem-container">
       <h2 data-i18n="solusi_title">Perlindungan Menyeluruh Lintas Sektor</h2>
-      <p data-i18n="solusi_desc">Arsitektur keamanan fleksibel dan berkinerja tinggi yang dirancang tangguh untuk melindungi aset digital vital, menjaga kelancaran operasional, dan mencegah kebocoran data di berbagai sektor strategis.</p>
-      
+      <p data-i18n="solusi_desc">Arsitektur keamanan fleksibel dan berkinerja tinggi yang dirancang tangguh untuk
+        melindungi aset digital vital, menjaga kelancaran operasional, dan mencegah kebocoran data di berbagai sektor
+        strategis.</p>
+
       <div class="partner-grid">
         <div class="partner-logo">
           <svg class="partner-icon" viewBox="0 0 24 24">
-            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/>
+            <path
+              d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z" />
           </svg>
           <span data-i18n="sector_1">Perbankan & Finansial</span>
         </div>
         <div class="partner-logo">
           <svg class="partner-icon" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7zm0 10c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7zm0 10c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z" />
           </svg>
           <span data-i18n="sector_2">Infrastruktur Kritis</span>
         </div>
         <div class="partner-logo">
           <svg class="partner-icon" viewBox="0 0 24 24">
-            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
           </svg>
           <span data-i18n="sector_3">Korporasi & Bisnis</span>
         </div>
         <div class="partner-logo">
           <svg class="partner-icon" viewBox="0 0 24 24">
-            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
           </svg>
           <span data-i18n="sector_4">Pendidikan & Riset</span>
         </div>
@@ -1064,41 +2184,55 @@
     <div class="section-header">
       <div class="hero-tag" data-i18n="pricing_tag" style="margin-bottom: 1rem;">Paket Lisensi & Perlindungan</div>
       <h2 data-i18n="pricing_header_title">Pilih Perlindungan Sesuai Kebutuhan Anda</h2>
-      <p data-i18n="pricing_header_desc">Dari perlindungan personal rumahan hingga kedaulatan siber korporasi dan institusi strategis.</p>
+      <p data-i18n="pricing_header_desc">Dari perlindungan personal rumahan hingga kedaulatan siber korporasi dan
+        institusi strategis.</p>
     </div>
 
     <div class="pricing-grid">
       <!-- Tier 1: Community (Free) -->
       <div class="pricing-card">
         <div class="pricing-tier-name" data-i18n="tier_comm_name">Community</div>
-        <div class="pricing-tier-desc" data-i18n="tier_comm_desc">Perlindungan pemindaian berkas dasar untuk komputer pribadi dan pelajar.</div>
+        <div class="pricing-tier-desc" data-i18n="tier_comm_desc">Perlindungan pemindaian berkas dasar untuk komputer
+          pribadi dan pelajar.</div>
         <div class="pricing-price">
           <span class="pricing-amount" data-i18n="tier_comm_price">Rp 0</span>
           <span class="pricing-period" data-i18n="tier_comm_period">/ Selamanya</span>
         </div>
         <ul class="pricing-features">
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="comm_feat_1">Mesin Pemindai YARA-X Heuristik</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="comm_feat_2">Penjara Karantina Virus (AES-256-GCM)</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="comm_feat_3">Mode Scan Cepat, Penuh, & Kustom</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="comm_feat_4">Pembaruan Definisi Virus Standar</span>
           </li>
           <li class="disabled">
-            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
             <span data-i18n="comm_feat_5">Proteksi Kernel Real-Time (RASP 24/7)</span>
           </li>
           <li class="disabled">
-            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
             <span data-i18n="comm_feat_6">Perisai Anti-Ransomware & Rollback</span>
           </li>
         </ul>
@@ -1108,95 +2242,136 @@
       <!-- Tier 2: Professional (Pro) — FEATURED -->
       <div class="pricing-card featured">
         <div class="badge-featured" data-i18n="badge_popular">PALING POPULER</div>
-        <div class="pricing-tier-name" data-i18n="tier_pro_name" style="color: var(--primary-cyan);">Professional (Pro)</div>
-        <div class="pricing-tier-desc" data-i18n="tier_pro_desc">Pertahanan tangguh real-time 24/7 untuk pekerja profesional, kreator, dan laptop bisnis.</div>
+        <div class="pricing-tier-name" data-i18n="tier_pro_name" style="color: var(--primary-cyan);">Professional (Pro)
+        </div>
+        <div class="pricing-tier-desc" data-i18n="tier_pro_desc">Pertahanan tangguh real-time 24/7 untuk pekerja
+          profesional, kreator, dan laptop bisnis.</div>
         <div class="pricing-price">
           <span class="pricing-amount" data-i18n="tier_pro_price">Rp 149.000</span>
           <span class="pricing-period" data-i18n="tier_pro_period">/ PC / tahun</span>
         </div>
         <ul class="pricing-features">
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <strong data-i18n="pro_feat_1">Semua Fitur Paket Community</strong>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="pro_feat_2">Proteksi Kernel Real-Time RASP 24/7</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="pro_feat_3">Anti-Ransomware & Auto-Rollback Berkas</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="pro_feat_4">Jadwal Pemindaian & Kebijakan Otomatis</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <span data-i18n="pro_feat_5">Lisensi Kriptografis Ed25519 (100% Offline)</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <span data-i18n="pro_feat_6">Prioritas Update Definisi Harian</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span data-i18n="pro_feat_6">Pemindai CBOM & Audit Kripto Lemah Lokal</span>
           </li>
         </ul>
-        <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20berlangganan%20Antivirus%20Ancaman%20Professional" target="_blank" rel="noopener noreferrer" class="btn-pricing btn-pricing-primary" data-i18n="btn_tier_pro">Langganan via WhatsApp</a>
+        <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20berlangganan%20Antivirus%20Ancaman%20Professional"
+          target="_blank" rel="noopener noreferrer" class="btn-pricing btn-pricing-primary"
+          data-i18n="btn_tier_pro">Langganan via WhatsApp</a>
       </div>
 
       <!-- Tier 3: Enterprise -->
       <div class="pricing-card">
         <div class="pricing-tier-name" data-i18n="tier_ent_name" style="color: var(--primary-emerald);">Enterprise</div>
-        <div class="pricing-tier-desc" data-i18n="tier_ent_desc">Kedaulatan pertahanan armada endpoint untuk korporasi, perbankan, dan instansi strategis.</div>
+        <div class="pricing-tier-desc" data-i18n="tier_ent_desc">Kedaulatan pertahanan armada endpoint untuk korporasi,
+          perbankan, dan instansi strategis.</div>
         <div class="pricing-price">
           <span class="pricing-amount" data-i18n="tier_ent_price">Rp 499.000</span>
           <span class="pricing-period" data-i18n="tier_ent_period">/ node / tahun</span>
         </div>
         <ul class="pricing-features">
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
             <strong data-i18n="ent_feat_1">Semua Fitur Paket Professional</strong>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <span data-i18n="ent_feat_2">Central Server Manager (Fleet EDR)</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span data-i18n="ent_feat_2">Central Server Manager & Fleet CBOM Dashboard</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <span data-i18n="ent_feat_3">Threat Intelligence Sharing (STIX 2.1 / TAXII)</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span data-i18n="ent_feat_3">Telemetri Hibrida PQC (NIST FIPS 203/204 Anti-SNDL)</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <span data-i18n="ent_feat_4">Dukungan Jaringan Militer & Air-Gapped</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span data-i18n="ent_feat_4">Threat Intelligence Sharing (STIX 2.1 / TAXII)</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <span data-i18n="ent_feat_5">Audit Kepatuhan ISO 27001 & BSSN CSF</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span data-i18n="ent_feat_5">Audit Kepatuhan Kuantum ISO 27001 & BSSN CSF</span>
           </li>
           <li>
-            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-            <span data-i18n="ent_feat_6">24/7 Dedicated CSIRT & SLA Support</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span data-i18n="ent_feat_6">Dukungan Militer Air-Gapped & 24/7 CSIRT SLA</span>
           </li>
         </ul>
-        <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20konsultasi%20paket%20Enterprise%20Antivirus%20Ancaman" target="_blank" rel="noopener noreferrer" class="btn-pricing btn-pricing-secondary" data-i18n="btn_tier_ent">Konsultasi Enterprise (WA)</a>
+        <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20konsultasi%20paket%20Enterprise%20Antivirus%20Ancaman"
+          target="_blank" rel="noopener noreferrer" class="btn-pricing btn-pricing-secondary"
+          data-i18n="btn_tier_ent">Konsultasi Enterprise (WA)</a>
       </div>
     </div>
 
     <!-- Allo Bank & WhatsApp Payment Information Box -->
     <div class="payment-info-box">
       <div class="payment-badge">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+        </svg>
         <span data-i18n="pay_box_title">Informasi Pembayaran & Aktivasi Langganan</span>
       </div>
       <div class="payment-content-grid">
         <div class="payment-card-bank">
           <div class="bank-label">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+              <line x1="2" y1="10" x2="22" y2="10"></line>
+            </svg>
             <span data-i18n="pay_bank_name">Transfer Bank (Allo Bank)</span>
           </div>
           <div class="bank-number-row">
             <span class="bank-acc-number" id="accNumber">081260006666</span>
             <button class="btn-copy-acc" onclick="copyAccNumber()" id="btnCopyAcc" title="Salin No. Rekening">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
               <span id="copyAccText" data-i18n="pay_btn_copy">Salin</span>
             </button>
           </div>
@@ -1204,9 +2379,14 @@
         </div>
         <div class="payment-card-wa">
           <div class="wa-label" data-i18n="pay_wa_label">Konfirmasi & Aktivasi Lisensi via WhatsApp</div>
-          <p class="wa-desc" data-i18n="pay_wa_desc">Kirim bukti transfer atau konsultasikan kebutuhan lisensi Anda langsung ke WhatsApp resmi:</p>
-          <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20berlangganan%20Antivirus%20Ancaman%20Professional" target="_blank" rel="noopener noreferrer" class="btn-wa-action">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.04 7.54C8.82 7.54 8.46 7.62 8.16 7.95C7.86 8.27 7.02 9.06 7.02 10.66C7.02 12.26 8.19 13.8 8.35 14.02C8.51 14.24 10.65 17.53 13.92 18.94C14.69 19.27 15.3 19.47 15.77 19.62C16.54 19.87 17.25 19.83 17.8 19.75C18.42 19.66 19.71 18.97 19.97 18.23C20.24 17.49 20.24 16.86 20.16 16.73C20.08 16.6 19.86 16.52 19.53 16.36C19.2 16.2 17.58 15.4 17.28 15.29C16.98 15.18 16.76 15.12 16.54 15.45C16.32 15.78 15.7 16.52 15.51 16.73C15.32 16.95 15.14 16.98 14.81 16.81C14.48 16.65 13.42 16.3 12.16 15.18C11.18 14.3 10.52 13.22 10.33 12.9C10.14 12.57 10.31 12.39 10.48 12.23C10.63 12.08 10.81 11.84 10.97 11.65C11.14 11.46 11.19 11.32 11.3 11.1C11.41 10.88 11.36 10.69 11.28 10.53C11.19 10.36 10.53 8.74 10.26 8.08C9.99 7.44 9.72 7.53 9.52 7.52C9.33 7.51 9.11 7.51 9.04 7.54Z"/></svg>
+          <p class="wa-desc" data-i18n="pay_wa_desc">Kirim bukti transfer atau konsultasikan kebutuhan lisensi Anda
+            langsung ke WhatsApp resmi:</p>
+          <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20berlangganan%20Antivirus%20Ancaman%20Professional"
+            target="_blank" rel="noopener noreferrer" class="btn-wa-action">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.04 7.54C8.82 7.54 8.46 7.62 8.16 7.95C7.86 8.27 7.02 9.06 7.02 10.66C7.02 12.26 8.19 13.8 8.35 14.02C8.51 14.24 10.65 17.53 13.92 18.94C14.69 19.27 15.3 19.47 15.77 19.62C16.54 19.87 17.25 19.83 17.8 19.75C18.42 19.66 19.71 18.97 19.97 18.23C20.24 17.49 20.24 16.86 20.16 16.73C20.08 16.6 19.86 16.52 19.53 16.36C19.2 16.2 17.58 15.4 17.28 15.29C16.98 15.18 16.76 15.12 16.54 15.45C16.32 15.78 15.7 16.52 15.51 16.73C15.32 16.95 15.14 16.98 14.81 16.81C14.48 16.65 13.42 16.3 12.16 15.18C11.18 14.3 10.52 13.22 10.33 12.9C10.14 12.57 10.31 12.39 10.48 12.23C10.63 12.08 10.81 11.84 10.97 11.65C11.14 11.46 11.19 11.32 11.3 11.1C11.41 10.88 11.36 10.69 11.28 10.53C11.19 10.36 10.53 8.74 10.26 8.08C9.99 7.44 9.72 7.53 9.52 7.52C9.33 7.51 9.11 7.51 9.04 7.54Z" />
+            </svg>
             <span data-i18n="pay_btn_wa">Langganan via WhatsApp: 081260006666</span>
           </a>
         </div>
@@ -1220,48 +2400,64 @@
       <h2 data-i18n="dl_header_title">Pusat Unduhan Antivirus Ancaman</h2>
       <p data-i18n="dl_header_desc">Unduh agen proteksi perangkat atau server manajemen siber terpusat sekarang.</p>
     </div>
-    
+
     <div class="download-grid">
       <!-- Windows Agent (Primary Antivirus Installer) -->
-      <div class="download-card" style="border-color: rgba(6, 182, 212, 0.4); box-shadow: 0 8px 30px rgba(6, 182, 212, 0.15);">
+      <div class="download-card"
+        style="border-color: rgba(6, 182, 212, 0.4); box-shadow: 0 8px 30px rgba(6, 182, 212, 0.15);">
         <svg class="platform-icon" viewBox="0 0 24 24" style="fill: var(--primary-cyan);">
-          <path d="M3 5.44l8.06-1.11v7.12H3V5.44zm0 8.01h8.06v7.11L3 19.46v-6.01zm9.12-9.28L21 2.78v8.67h-8.88V4.17zm0 9.28h8.88v8.65l-8.88-1.25V13.45z"/>
+          <path
+            d="M3 5.44l8.06-1.11v7.12H3V5.44zm0 8.01h8.06v7.11L3 19.46v-6.01zm9.12-9.28L21 2.78v8.67h-8.88V4.17zm0 9.28h8.88v8.65l-8.88-1.25V13.45z" />
         </svg>
         <h3 data-i18n="dl_card1_title">Windows Agent (Installer Antivirus)</h3>
-        <p data-i18n="dl_card1_desc">Paket proteksi real-time untuk Windows 10/11 (64-bit). Lengkap dengan Tray Icon, auto-start, dan lisensi gratis.</p>
-        <a href="/downloads/ancaman_agent_setup.zip" class="btn-download-card" download data-i18n="btn_dl_card1">Unduh (.ZIP)</a>
+        <p data-i18n="dl_card1_desc">Paket proteksi real-time untuk Windows 10/11 (64-bit). Lengkap dengan Tray Icon,
+          auto-start, pemindai CBOM lokal, dan lisensi gratis.</p>
+        <a href="/downloads/ancaman_agent_setup.zip" class="btn-download-card" download data-i18n="btn_dl_card1">Unduh
+          (.ZIP)</a>
       </div>
 
       <!-- User Guide & Legal Terms -->
       <div class="download-card">
         <svg class="platform-icon" viewBox="0 0 24 24" style="fill: var(--primary-emerald);">
-          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
         </svg>
         <h3 data-i18n="dl_card2_title">Panduan & Ketentuan (ID & EN)</h3>
-        <p data-i18n="dl_card2_desc">Panduan instalasi langkah demi langkah, kebijakan privasi kedaulatan data, dan ketentuan penggunaan resmi.</p>
-        <a href="terms.html" onclick="openLegal(event, 'terms')" class="btn-download-card" style="background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--border-color);" data-i18n="btn_dl_card2">Baca Panduan</a>
+        <p data-i18n="dl_card2_desc">Panduan instalasi langkah demi langkah, kebijakan privasi kedaulatan data, dan
+          ketentuan penggunaan resmi.</p>
+        <a href="terms.html" onclick="openLegal(event, 'terms')" class="btn-download-card"
+          style="background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--border-color);"
+          data-i18n="btn_dl_card2">Baca Panduan</a>
       </div>
 
       <!-- Central Server Manager (Enterprise Contact) -->
       <div class="download-card">
         <svg class="platform-icon" viewBox="0 0 24 24" style="fill: #94a3b8;">
-          <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm13-8H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm13-8H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+          <path
+            d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm13-8H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm13-8H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
         </svg>
         <h3 data-i18n="dl_card3_title">Central Server Manager</h3>
-        <p data-i18n="dl_card3_desc">Server pusat pengelolaan armada endpoint untuk institusi dan korporasi (diserahkan via tim teknis).</p>
-        <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20konsultasi%20akses%20Central%20Server%20Manager" target="_blank" rel="noopener noreferrer" class="btn-download-card" style="background: rgba(37, 211, 102, 0.15); color: #25D366; border: 1px solid #25D366;" data-i18n="btn_dl_card3">Akses via WhatsApp</a>
+        <p data-i18n="dl_card3_desc">Server pusat pengelolaan armada endpoint & Fleet CBOM Dashboard untuk institusi dan korporasi (diserahkan
+          via tim teknis).</p>
+        <a href="https://wa.me/6281260006666?text=Halo%20Admin%20Ancaman,%20saya%20ingin%20konsultasi%20akses%20Central%20Server%20Manager"
+          target="_blank" rel="noopener noreferrer" class="btn-download-card"
+          style="background: rgba(37, 211, 102, 0.15); color: #25D366; border: 1px solid #25D366;"
+          data-i18n="btn_dl_card3">Akses via WhatsApp</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p data-i18n="footer_copy">&copy; 2026 PT Antivirus Ancaman Indonesia. Seluruh hak cipta dilindungi undang-undang.</p>
-    <p data-i18n="footer_sub">Solusi Pertahanan Siber Mandiri untuk Menjaga Kedaulatan Digital & Terkoneksi ke Jaringan Intelijen Global.</p>
+    <p data-i18n="footer_copy">&copy; 2026 PT Antivirus Ancaman Indonesia. Seluruh hak cipta dilindungi undang-undang.
+    </p>
+    <p data-i18n="footer_sub">Solusi Pertahanan Siber & Kriptografi Pasca-Kuantum Mandiri untuk Menjaga Kedaulatan Digital & Terkoneksi ke Jaringan
+      Intelijen Global.</p>
     <div class="footer-links">
       <a href="terms.html" onclick="openLegal(event, 'terms')" data-i18n="footer_terms">Syarat & Ketentuan</a>
       <a href="privacy.html" onclick="openLegal(event, 'privacy')" data-i18n="footer_privacy">Kebijakan Privasi</a>
-      <a href="https://github.com/camanit/ancaman" target="_blank" rel="noopener noreferrer" data-i18n="footer_github">GitHub Komunitas</a>
+      <a href="https://github.com/camanit/ancaman.id" target="_blank" rel="noopener noreferrer"
+        data-i18n="footer_github">GitHub Komunitas</a>
     </div>
   </footer>
 
@@ -1272,7 +2468,10 @@
     <div class="legal-modal-content">
       <div class="modal-header">
         <h3 id="modalTitle">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-cyan);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-cyan);">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
           <span id="modalTitleText">Syarat & Ketentuan</span>
         </h3>
         <button class="modal-close-btn" onclick="closeLegal()" aria-label="Tutup Modal">&times;</button>
@@ -1281,27 +2480,39 @@
         <!-- Injected via JavaScript -->
       </div>
       <div class="modal-footer">
-        <button class="btn-pricing btn-pricing-secondary" style="width: auto; padding: 0.5rem 1.5rem;" onclick="closeLegal()" data-i18n="modal_btn_close">Tutup</button>
+        <button class="btn-pricing btn-pricing-secondary" style="width: auto; padding: 0.5rem 1.5rem;"
+          onclick="closeLegal()" data-i18n="modal_btn_close">Tutup</button>
       </div>
     </div>
   </div>
 
-  <!-- Client-Side Bilingual (ID/EN) Engine -->
+  <!-- Client-Side Bilingual (ID/EN) Engine + Mosca PQC Simulator -->
   <script>
     const translations = {
       id: {
         nav_features: "Fitur Proteksi",
+        nav_pqc: "Simulasi PQC & CBOM",
+        nav_arch: "Arsitektur",
         nav_solutions: "Solusi Industri",
         nav_pricing: "Paket Harga",
         nav_download: "Unduh",
         nav_cta: "Unduh Sekarang",
-        hero_tag: "Platform EDR & XDR Generasi Baru",
-        hero_title: "Kedaulatan Proteksi Siber dengan <span>Teknologi AI & Kernel Mini-filter</span>",
-        hero_desc: "Antivirus Ancaman menghadirkan sistem pertahanan tingkat tinggi berbasis kedaulatan digital mandiri yang terhubung ke jaringan intelijen AI global untuk menangkal segala malware, trojan perbankan, ransomware, hingga serangan terarah (APT).",
+        hero_tag: "Platform EDR, XDR & CBOM Tahan-Kuantum Generasi Baru",
+        live_pill_1: "NIST FIPS 203/204 Hybrid PQC",
+        live_pill_2: "GPlay AI DataBank",
+        live_pill_3: "ZentyQuetry CBOM Bridge",
+        live_pill_4: "ZentyTeamsCore WORM",
+        live_pill_5: "BSSN STIX 2.1 / TAXII",
+        hero_title: "Kedaulatan Proteksi Siber dengan <span>AI, Kernel Mini-filter & Kriptografi Pasca-Kuantum</span>",
+        hero_desc: "Antivirus Ancaman menghadirkan pertahanan endpoint berdaulat yang menggabungkan deteksi AI & Kernel Mini-filter dengan pemindaian Cryptographic Bill of Materials (CBOM) lokal serta kanal telemetri hibrida tahan-kuantum (NIST FIPS 203 ML-KEM & FIPS 204 ML-DSA) untuk menangkal malware, ransomware, APT, hingga ancaman Store-Now-Decrypt-Later (SNDL).",
         hero_cta_primary: "Mulai Proteksi Sekarang",
-        hero_cta_secondary: "Pelajari Fitur",
-        features_header_title: "Teknologi Pertahanan Siber Berlapis",
-        features_header_desc: "Mengintegrasikan sistem operasi, kecerdasan buatan, dan korelasi data telemetri global.",
+        hero_cta_secondary: "Simulasi Risiko Kuantum & CBOM",
+        metric_1_lbl: "Intersepsi Kernel & YARA-X",
+        metric_2_lbl: "Hybrid PQC (ML-KEM + Ed25519)",
+        metric_3_lbl: "Audit CBOM & Kripto Lemah Lokal",
+        metric_4_lbl: "Kedaulatan Offline & Anti-Ransomware",
+        features_header_title: "9 Lapisan Teknologi Pertahanan Siber & Pasca-Kuantum",
+        features_header_desc: "Mengintegrasikan intersepsi kernel sistem operasi, kecerdasan buatan, audit kriptografi CBOM lokal, dan korelasi telemetri hibrida PQC.",
         feat_1_title: "Heuristik AI Tingkat Lanjut",
         feat_1_desc: "Mendeteksi malware tanpa signature menggunakan model probabilitas sigmoid kecerdasan buatan. Mengidentifikasi perilaku anomali sebelum kerusakan terjadi.",
         feat_2_title: "Kernel Mini-filter Driver",
@@ -1314,6 +2525,64 @@
         feat_5_desc: "Mengintegrasikan feed intelijen ancaman berstandar internasional STIX 2.1 dan protokol TAXII secara otomatis untuk pengayaan IoC dan deteksi proaktif perimeter.",
         feat_6_title: "Asisten AI & Komunitas SDK",
         feat_6_desc: "Asisten remedi AI interaktif untuk memandu mitigasi insiden siber secara cepat, didukung Plugin SDK untuk integrasi sensor pihak ketiga.",
+        feat_7_title: "Pemindai CBOM & Audit Kriptografi Lemah Lokal",
+        feat_7_desc: "Memindai biner (.exe, .dll, .sys) dan sertifikat lokal untuk mendeteksi algoritma usang (RSA < 2048-bit, ECC klasik, SHA-1, MD5) yang rentan terhadap komputer kuantum (Shor's Algorithm), serta mengekspor Cryptographic Bill of Materials (CycloneDX 1.6).",
+        feat_8_title: "Telemetri Hibrida PQC (NIST FIPS 203 & 204)",
+        feat_8_desc: "Menggabungkan kunci Ed25519 dengan algoritma pasca-kuantum standar NIST (ML-KEM-768 / Kyber & ML-DSA-65 / Dilithium) untuk mengamankan komunikasi agen-ke-server, log XDR, dan feed STIX 2.1 dari sadapan Store-Now-Decrypt-Later (SNDL).",
+        feat_9_title: "Dashboard Pusat CBOM & Kepatuhan Kuantum",
+        feat_9_desc: "Menyajikan visibilitas penuh di Central Server Manager atas indeks kesiapan kuantum seluruh armada endpoint, kalkulator risiko Teorema Mosca (Y + X > Z), serta pelaporan kepatuhan standar BSSN, ISO/IEC 27001, dan NIST SP 800-208.",
+        pqc_sec_tag: "Kesiapan Pasca-Kuantum & Audit CBOM Endpoint",
+        pqc_sec_title: "Simulasi Risiko Kuantum (Teorema Mosca) & Inventaris CBOM Lokal",
+        pqc_sec_desc: "Uji eksposur Store-Now-Decrypt-Later (SNDL) organisasi Anda dan lihat bagaimana agen Antivirus Ancaman menginventarisasi algoritma kriptografi di setiap endpoint secara otomatis.",
+        mosca_badge: "KALKULATOR TEOREMA MOSCA (Y + X > Z)",
+        mosca_title: "Apakah Data Endpoint & Telemetri Anda Aman dari Q-Day?",
+        mosca_subtitle: "Jika masa simpan rahasia data (Y) ditambah waktu migrasi infrastruktur PQC (X) melebihi estimasi kedatangan komputer kuantum kriptanalitis (Z), maka data yang disadap hari ini akan terbongkar.",
+        preset_bank: "🏦 Perbankan & Finansial",
+        preset_gov: "🏛️ Infrastruktur Kritis / BSSN",
+        preset_mil: "🛡️ Pertahanan & Air-Gapped",
+        preset_corp: "🏢 Korporasi Standar",
+        slider_y_lbl: "Y — Masa Kerahasiaan Data (Shelf-Life)",
+        slider_x_lbl: "X — Waktu Migrasi Kriptografi Endpoint (CBOM → PQC)",
+        slider_z_lbl: "Z — Estimasi Horison Komputer Kuantum (Q-Day / CRQC)",
+        unit_years: "Tahun",
+        mosca_formula_lbl: "Evaluasi Persamaan Mosca",
+        mosca_shield_lbl: "Perisai Aktif Ancaman:",
+        btn_dl_cbom: "Unduh Sampel CBOM (CycloneDX 1.6 JSON)",
+        cbom_preview_title: "Contoh Hasil Pemindaian CBOM Lokal pada Endpoint (Modul ancaman-core::pqc_cbom)",
+        cbom_preview_sub: "Memetakan biner sistem, pustaka TLS, sertifikat X.509, dan protokol agen untuk menemukan kriptografi lemah sebelum dieksploitasi.",
+        cbom_th_asset: "Komponen / Lokasi Berkas",
+        cbom_th_alg: "Algoritma Terdeteksi",
+        cbom_th_key: "Kunci / Kurva",
+        cbom_th_status: "Status Kuantum",
+        cbom_th_rec: "Rekomendasi Remediasi NIST / BSSN",
+        status_pqc: "Tahan Kuantum (Hybrid PQC)",
+        status_grover: "Aman (Grover-Resistant)",
+        status_vuln: "Rentan Kritis (Shor & Klasik)",
+        status_trans: "Transisi (Rentan Shor)",
+        rec_1: "Aman terhadap serangan Store-Now-Decrypt-Later (SNDL).",
+        rec_2: "Kunci simetris 256-bit mempertahankan keamanan 128-bit pasca-Grover.",
+        rec_3: "Segera cabut sertifikat RSA-1024/SHA-1; migrasikan ke ML-KEM-768 / ML-DSA-65.",
+        rec_4: "Aktifkan pertukaran kunci hibrida X25519MLKEM768 pada kebijakan grup TLS 1.3.",
+        arch_tag: "Arsitektur & Peta Jalan Kedaulatan Kuantum",
+        arch_title: "Peta Jalan Integrasi PQC & Ekosistem Terpadu CTARTech",
+        arch_desc: "Dirancang selaras dengan standar ZentyQuetry untuk memberikan perlindungan endpoint menyeluruh dari ancaman malware hari ini hingga ancaman dekripsi kuantum masa depan.",
+        pqc_p1_tag: "FASE 1 • BULAN 1–2 (AKTIF)",
+        pqc_p1_title: "Riset & Modul Pemindaian CBOM Lokal",
+        pqc_p1_desc: "Pemetaan dependensi kriptografi pada kode sumber Rust dan pengembangan modul pemindai pasif untuk mengaudit biner (.exe, .dll, .sys) serta sertifikat lokal yang masih menggunakan algoritma lemah (RSA < 2048-bit, ECC klasik, SHA-1, MD5).",
+        pqc_p2_tag: "FASE 2 • BULAN 3–4 (AKTIF)",
+        pqc_p2_title: "Integrasi Algoritma Hibrida Standar NIST",
+        pqc_p2_desc: "Implementasi skema enkapsulasi kunci hibrida X25519 + ML-KEM-768 (FIPS 203) dan tanda tangan digital komposit Ed25519 + ML-DSA-65 (FIPS 204) pada jalur telemetri agen, log XDR, dan distribusi lisensi offline anti-SNDL.",
+        pqc_p3_tag: "FASE 3 • BULAN 5–6 (AKTIF)",
+        pqc_p3_title: "Dashboard Pusat CBOM & Audit Kepatuhan Kuantum",
+        pqc_p3_desc: "Pembaruan antarmuka Central Server Manager & React Dashboard dengan tab khusus Quantum PQC & CBOM, ekspor laporan CycloneDX 1.6 satu klik, simulasi Teorema Mosca, dan kepatuhan regulasi BSSN & ISO 27001.",
+        eco_1_title: "Kernel Sensor & Anti-Ransomware",
+        eco_1_desc: "Intersepsi proses real-time, YARA-X, heuristik AI, dan rollback VSS otomatis di setiap endpoint.",
+        eco_2_title: "CycloneDX 1.6 CBOM & FIPS 203/204",
+        eco_2_desc: "Sinkronisasi inventaris kriptografi endpoint dan mitigasi Store-Now-Decrypt-Later (SNDL).",
+        eco_3_title: "Global Threat & Crypto Intelligence",
+        eco_3_desc: "Pengayaan IoC STIX 2.1/TAXII dan deteksi zero-day berbasis model neural terdistribusi.",
+        eco_4_title: "Immutable Audit & BSSN Compliance",
+        eco_4_desc: "Pencatatan bukti forensik dan kepatuhan regulasi yang ditandatangani secara kriptografis.",
         solusi_title: "Perlindungan Menyeluruh Lintas Sektor",
         solusi_desc: "Arsitektur keamanan fleksibel dan berkinerja tinggi yang dirancang tangguh untuk melindungi aset digital vital, menjaga kelancaran operasional, dan mencegah kebocoran data di berbagai sektor strategis.",
         sector_1: "Perbankan & Finansial",
@@ -1322,7 +2591,7 @@
         sector_4: "Pendidikan & Riset",
         pricing_tag: "Paket Lisensi & Perlindungan",
         pricing_header_title: "Pilih Perlindungan Sesuai Kebutuhan Anda",
-        pricing_header_desc: "Dari perlindungan personal rumahan hingga kedaulatan siber korporasi dan institusi strategis.",
+        pricing_header_desc: "Dari perlindungan personal rumahan hingga kedaulatan siber dan pasca-kuantum korporasi serta institusi strategis.",
         badge_popular: "PALING POPULER",
         tier_comm_name: "Community",
         tier_comm_desc: "Perlindungan pemindaian berkas dasar untuk komputer pribadi dan pelajar.",
@@ -1336,7 +2605,7 @@
         comm_feat_6: "Perisai Anti-Ransomware & Rollback",
         btn_tier_comm: "Unduh Gratis",
         tier_pro_name: "Professional (Pro)",
-        tier_pro_desc: "Pertahanan tangguh real-time 24/7 untuk pekerja profesional, kreator, dan laptop bisnis.",
+        tier_pro_desc: "Pertahanan tangguh real-time 24/7 & audit CBOM lokal untuk pekerja profesional dan laptop bisnis.",
         tier_pro_price: "Rp 149.000",
         tier_pro_period: "/ PC / tahun",
         pro_feat_1: "Semua Fitur Paket Community",
@@ -1344,18 +2613,18 @@
         pro_feat_3: "Anti-Ransomware & Auto-Rollback Berkas",
         pro_feat_4: "Jadwal Pemindaian & Kebijakan Otomatis",
         pro_feat_5: "Lisensi Kriptografis Ed25519 (100% Offline)",
-        pro_feat_6: "Prioritas Update Definisi Harian",
+        pro_feat_6: "Pemindai CBOM & Audit Kripto Lemah Lokal",
         btn_tier_pro: "Langganan via WhatsApp",
         tier_ent_name: "Enterprise",
-        tier_ent_desc: "Kedaulatan pertahanan armada endpoint untuk korporasi, perbankan, dan instansi strategis.",
+        tier_ent_desc: "Kedaulatan pertahanan armada endpoint & telemetri hibrida PQC untuk korporasi, perbankan, dan instansi strategis.",
         tier_ent_price: "Rp 499.000",
         tier_ent_period: "/ node / tahun",
         ent_feat_1: "Semua Fitur Paket Professional",
-        ent_feat_2: "Central Server Manager (Fleet EDR)",
-        ent_feat_3: "Threat Intelligence Sharing (STIX 2.1 / TAXII)",
-        ent_feat_4: "Dukungan Jaringan Militer & Air-Gapped",
-        ent_feat_5: "Audit Kepatuhan ISO 27001 & BSSN CSF",
-        ent_feat_6: "24/7 Dedicated CSIRT & SLA Support",
+        ent_feat_2: "Central Server Manager & Fleet CBOM Dashboard",
+        ent_feat_3: "Telemetri Hibrida PQC (NIST FIPS 203/204 Anti-SNDL)",
+        ent_feat_4: "Threat Intelligence Sharing (STIX 2.1 / TAXII)",
+        ent_feat_5: "Audit Kepatuhan Kuantum ISO 27001 & BSSN CSF",
+        ent_feat_6: "Dukungan Militer Air-Gapped & 24/7 CSIRT SLA",
         btn_tier_ent: "Konsultasi Enterprise (WA)",
         pay_box_title: "Informasi Pembayaran & Aktivasi Langganan",
         pay_bank_name: "Transfer Bank (Allo Bank)",
@@ -1366,18 +2635,18 @@
         pay_wa_desc: "Kirim bukti transfer atau konsultasikan kebutuhan lisensi Anda langsung ke WhatsApp resmi:",
         pay_btn_wa: "Langganan via WhatsApp: 081260006666",
         dl_header_title: "Pusat Unduhan & Panduan Antivirus Ancaman",
-        dl_header_desc: "Unduh paket instalasi resmi Antivirus Ancaman atau pelajari panduan kedaulatan siber kami.",
+        dl_header_desc: "Unduh paket instalasi resmi Antivirus Ancaman atau pelajari panduan kedaulatan siber & PQC kami.",
         dl_card1_title: "Windows Agent (Installer Antivirus)",
-        dl_card1_desc: "Paket proteksi real-time untuk Windows 10/11 (64-bit). Lengkap dengan Tray Icon, auto-start, dan lisensi gratis.",
+        dl_card1_desc: "Paket proteksi real-time untuk Windows 10/11 (64-bit). Lengkap dengan Tray Icon, auto-start, pemindai CBOM lokal, dan lisensi gratis.",
         btn_dl_card1: "Unduh (.ZIP)",
         dl_card2_title: "Panduan & Ketentuan (ID & EN)",
         dl_card2_desc: "Panduan instalasi langkah demi langkah, kebijakan privasi kedaulatan data, dan ketentuan penggunaan resmi.",
         btn_dl_card2: "Baca Panduan",
         dl_card3_title: "Central Server Manager (Enterprise)",
-        dl_card3_desc: "Server pusat pengelolaan armada endpoint untuk institusi dan korporasi (diserahkan via tim teknis).",
+        dl_card3_desc: "Server pusat pengelolaan armada endpoint & Fleet CBOM Dashboard untuk institusi dan korporasi (diserahkan via tim teknis).",
         btn_dl_card3: "Akses via WhatsApp",
         footer_copy: "© 2026 PT Antivirus Ancaman Indonesia. Seluruh hak cipta dilindungi undang-undang.",
-        footer_sub: "Solusi Pertahanan Siber Mandiri untuk Menjaga Kedaulatan Digital & Terkoneksi ke Jaringan Intelijen Global.",
+        footer_sub: "Solusi Pertahanan Siber & Kriptografi Pasca-Kuantum Mandiri untuk Menjaga Kedaulatan Digital & Terkoneksi ke Jaringan Intelijen Global.",
         footer_terms: "Syarat & Ketentuan",
         footer_privacy: "Kebijakan Privasi",
         footer_github: "GitHub Komunitas",
@@ -1385,17 +2654,28 @@
       },
       en: {
         nav_features: "Security Features",
+        nav_pqc: "PQC & CBOM Simulator",
+        nav_arch: "Architecture",
         nav_solutions: "Industry Solutions",
         nav_pricing: "Pricing",
         nav_download: "Downloads",
         nav_cta: "Download Now",
-        hero_tag: "Next-Gen Enterprise EDR & XDR Platform",
-        hero_title: "Sovereign Cyber Defense Powered by <span>AI & Kernel Mini-filter</span>",
-        hero_desc: "Ancaman Antivirus delivers an autonomous, high-resilience cyber defense system connected to a global AI threat intelligence databank to intercept malware, banking trojans, ransomware, and Advanced Persistent Threats (APTs).",
+        hero_tag: "Next-Gen Quantum-Safe EDR, XDR & CBOM Platform",
+        live_pill_1: "NIST FIPS 203/204 Hybrid PQC",
+        live_pill_2: "GPlay AI DataBank",
+        live_pill_3: "ZentyQuetry CBOM Bridge",
+        live_pill_4: "ZentyTeamsCore WORM",
+        live_pill_5: "BSSN STIX 2.1 / TAXII",
+        hero_title: "Sovereign Cyber Defense Powered by <span>AI, Kernel Mini-filter & Post-Quantum Cryptography</span>",
+        hero_desc: "Ancaman Antivirus delivers sovereign endpoint defense combining AI heuristics and Kernel Mini-filter interception with a local Cryptographic Bill of Materials (CBOM) scanner and NIST-standard hybrid PQC telemetry (FIPS 203 ML-KEM & FIPS 204 ML-DSA) to neutralize malware, ransomware, APTs, and Store-Now-Decrypt-Later (SNDL) quantum harvesting.",
         hero_cta_primary: "Start Protection Now",
-        hero_cta_secondary: "Explore Features",
-        features_header_title: "Multi-Layered Cyber Defense Architecture",
-        features_header_desc: "Harmonizing kernel-level OS interception, artificial intelligence, and global telemetry data correlation.",
+        hero_cta_secondary: "Simulate Quantum Risk & CBOM",
+        metric_1_lbl: "Kernel & YARA-X Interception",
+        metric_2_lbl: "Hybrid PQC (ML-KEM + Ed25519)",
+        metric_3_lbl: "Local CBOM & Weak Crypto Audit",
+        metric_4_lbl: "Offline Sovereignty & Anti-Ransomware",
+        features_header_title: "9 Layers of Cyber & Post-Quantum Defense Architecture",
+        features_header_desc: "Harmonizing OS kernel interception, artificial intelligence, local CBOM cryptographic auditing, and hybrid PQC telemetry correlation.",
         feat_1_title: "Advanced AI Heuristics",
         feat_1_desc: "Signature-less malware detection using neural probability models. Identifies anomalous behavioral patterns before damage occurs.",
         feat_2_title: "Kernel Mini-filter Driver",
@@ -1408,6 +2688,64 @@
         feat_5_desc: "Ingests international threat feeds via standard STIX 2.1 and TAXII protocols, continuously enriching perimeter defenses with real-time IoC data.",
         feat_6_title: "AI Security Copilot & Plugin SDK",
         feat_6_desc: "Interactive AI mitigation assistant to guide rapid incident remediation, backed by an extensible SDK for custom security plugins.",
+        feat_7_title: "Local CBOM Scanner & Weak Crypto Audit",
+        feat_7_desc: "Scans local binaries (.exe, .dll, .sys) and certificates to uncover deprecated algorithms (RSA < 2048-bit, classical ECC, SHA-1, MD5) vulnerable to Shor's Algorithm, exporting a standard CycloneDX 1.6 Cryptographic Bill of Materials (CBOM).",
+        feat_8_title: "Hybrid PQC Telemetry (NIST FIPS 203 & 204)",
+        feat_8_desc: "Combines classical Ed25519 keys with NIST post-quantum algorithms (ML-KEM-768 / Kyber & ML-DSA-65 / Dilithium) to shield agent-to-server telemetry, XDR logs, and STIX 2.1 feeds against Store-Now-Decrypt-Later (SNDL) interception.",
+        feat_9_title: "Fleet CBOM Console & Quantum Compliance",
+        feat_9_desc: "Delivers full fleet visibility in Central Server Manager with endpoint Quantum Readiness scores, interactive Mosca's Theorem (Y + X > Z) risk modeling, and compliance reporting for BSSN, ISO/IEC 27001, and NIST SP 800-208.",
+        pqc_sec_tag: "Post-Quantum Readiness & Endpoint CBOM Audit",
+        pqc_sec_title: "Quantum Risk Simulator (Mosca's Theorem) & Local CBOM Inventory",
+        pqc_sec_desc: "Model your organization's Store-Now-Decrypt-Later (SNDL) exposure and inspect how the Ancaman Agent automatically inventories cryptographic primitives on every endpoint.",
+        mosca_badge: "MOSCA'S THEOREM CALCULATOR (Y + X > Z)",
+        mosca_title: "Are Your Endpoint Data & Telemetry Safe Before Q-Day?",
+        mosca_subtitle: "If your data's required secrecy shelf-life (Y) plus your PQC migration timeline (X) exceeds the estimated arrival of a cryptanalytically relevant quantum computer (Z), traffic harvested today will be decrypted.",
+        preset_bank: "🏦 Banking & Finance",
+        preset_gov: "🏛️ Critical Infra / BSSN",
+        preset_mil: "🛡️ Defense & Air-Gapped",
+        preset_corp: "🏢 Standard Enterprise",
+        slider_y_lbl: "Y — Data Confidentiality Shelf-Life",
+        slider_x_lbl: "X — Endpoint Crypto Migration Time (CBOM → PQC)",
+        slider_z_lbl: "Z — Estimated Quantum Computer Horizon (Q-Day / CRQC)",
+        unit_years: "Years",
+        mosca_formula_lbl: "Mosca Inequality Evaluation",
+        mosca_shield_lbl: "Ancaman Active Shield:",
+        btn_dl_cbom: "Download Sample CBOM (CycloneDX 1.6 JSON)",
+        cbom_preview_title: "Sample Local Endpoint CBOM Scan Output (ancaman-core::pqc_cbom Module)",
+        cbom_preview_sub: "Maps system binaries, TLS libraries, X.509 certificates, and agent protocols to uncover weak cryptography before exploitation.",
+        cbom_th_asset: "Component / File Path",
+        cbom_th_alg: "Detected Algorithm",
+        cbom_th_key: "Key Size / Curve",
+        cbom_th_status: "Quantum Status",
+        cbom_th_rec: "NIST / BSSN Remediation Guidance",
+        status_pqc: "Quantum-Safe (Hybrid PQC)",
+        status_grover: "Safe (Grover-Resistant)",
+        status_vuln: "Critical Vulnerable (Shor & Classical)",
+        status_trans: "Transitional (Shor-Vulnerable)",
+        rec_1: "Protected against Store-Now-Decrypt-Later (SNDL) harvesting.",
+        rec_2: "256-bit symmetric keys retain 128-bit security post-Grover.",
+        rec_3: "Revoke RSA-1024/SHA-1 certificates immediately; migrate to ML-KEM-768 / ML-DSA-65.",
+        rec_4: "Enable X25519MLKEM768 hybrid key exchange in TLS 1.3 group policy.",
+        arch_tag: "Quantum Sovereignty Architecture & Roadmap",
+        arch_title: "PQC Integration Roadmap & CTARTech Unified Ecosystem",
+        arch_desc: "Engineered in alignment with ZentyQuetry standards to deliver end-to-end endpoint protection against both today's malware and tomorrow's quantum decryption.",
+        pqc_p1_tag: "PHASE 1 • MONTHS 1–2 (ACTIVE)",
+        pqc_p1_title: "Research & Local CBOM Scanner Module",
+        pqc_p1_desc: "Maps cryptographic dependencies across the Rust codebase and deploys a passive endpoint scanner auditing local binaries (.exe, .dll, .sys) and certificates for weak algorithms (RSA < 2048-bit, classical ECC, SHA-1, MD5).",
+        pqc_p2_tag: "PHASE 2 • MONTHS 3–4 (ACTIVE)",
+        pqc_p2_title: "NIST-Standard Hybrid Algorithm Integration",
+        pqc_p2_desc: "Implements hybrid key encapsulation X25519 + ML-KEM-768 (FIPS 203) and composite digital signatures Ed25519 + ML-DSA-65 (FIPS 204) across agent telemetry, XDR logs, and anti-SNDL offline license delivery.",
+        pqc_p3_tag: "PHASE 3 • MONTHS 5–6 (ACTIVE)",
+        pqc_p3_title: "Central Fleet CBOM Dashboard & Quantum Compliance",
+        pqc_p3_desc: "Upgrades Central Server Manager & React Dashboard with a dedicated Quantum PQC & CBOM console, 1-click CycloneDX 1.6 export, Mosca's Theorem simulator, and BSSN & ISO 27001 compliance auditing.",
+        eco_1_title: "Kernel Sensor & Anti-Ransomware",
+        eco_1_desc: "Real-time process interception, YARA-X, AI heuristics, and automated VSS rollback on every endpoint.",
+        eco_2_title: "CycloneDX 1.6 CBOM & FIPS 203/204",
+        eco_2_desc: "Endpoint cryptographic inventory synchronization and Store-Now-Decrypt-Later (SNDL) mitigation.",
+        eco_3_title: "Global Threat & Crypto Intelligence",
+        eco_3_desc: "STIX 2.1/TAXII IoC enrichment and distributed neural zero-day malware detection.",
+        eco_4_title: "Immutable Audit & BSSN Compliance",
+        eco_4_desc: "Cryptographically signed forensic evidence logging and regulatory compliance attestation.",
         solusi_title: "Enterprise Protection Across Sectors",
         solusi_desc: "A flexible, high-performance security architecture engineered to safeguard mission-critical data assets, ensure operational continuity, and prevent breaches worldwide.",
         sector_1: "Banking & Financial Services",
@@ -1416,7 +2754,7 @@
         sector_4: "Education & Research",
         pricing_tag: "License & Protection Tiers",
         pricing_header_title: "Choose Protection Designed for Your Scale",
-        pricing_header_desc: "From personal workstation defense to sovereign enterprise fleet resilience.",
+        pricing_header_desc: "From personal workstation defense to sovereign enterprise cyber and post-quantum fleet resilience.",
         badge_popular: "MOST POPULAR",
         tier_comm_name: "Community",
         tier_comm_desc: "Essential on-demand malware scanning for personal workstations and students.",
@@ -1430,7 +2768,7 @@
         comm_feat_6: "Anti-Ransomware Shield & Rollback",
         btn_tier_comm: "Download Free",
         tier_pro_name: "Professional (Pro)",
-        tier_pro_desc: "Resilient 24/7 real-time defense for professionals, power users, and business laptops.",
+        tier_pro_desc: "Resilient 24/7 real-time defense & local CBOM auditing for professionals, power users, and business laptops.",
         tier_pro_price: "Rp 149,000",
         tier_pro_period: "/ PC / year",
         pro_feat_1: "All Community Tier Features",
@@ -1438,18 +2776,18 @@
         pro_feat_3: "Anti-Ransomware & Auto File Rollback",
         pro_feat_4: "Scheduled Scans & Automated Policies",
         pro_feat_5: "Ed25519 Cryptographic License (100% Offline)",
-        pro_feat_6: "Priority Daily Threat Intelligence Feeds",
+        pro_feat_6: "Local CBOM Scanner & Weak Crypto Audit",
         btn_tier_pro: "Subscribe via WhatsApp",
         tier_ent_name: "Enterprise",
-        tier_ent_desc: "Sovereign fleet endpoint defense for enterprises, banks, and national infrastructure.",
+        tier_ent_desc: "Sovereign fleet endpoint defense & hybrid PQC telemetry for enterprises, banks, and national infrastructure.",
         tier_ent_price: "Rp 499,000",
         tier_ent_period: "/ node / year",
         ent_feat_1: "All Professional Tier Features",
-        ent_feat_2: "Central Server Manager (Fleet EDR Console)",
-        ent_feat_3: "STIX 2.1 / TAXII Threat Intelligence Feeds",
-        ent_feat_4: "Air-Gapped & Military Network Support",
-        ent_feat_5: "ISO 27001 & BSSN Cybersecurity Audit",
-        ent_feat_6: "24/7 Dedicated CSIRT & SLA Support",
+        ent_feat_2: "Central Server Manager & Fleet CBOM Console",
+        ent_feat_3: "Hybrid PQC Telemetry (NIST FIPS 203/204 Anti-SNDL)",
+        ent_feat_4: "STIX 2.1 / TAXII Threat Intelligence Feeds",
+        ent_feat_5: "ISO 27001 & BSSN Quantum Compliance Audit",
+        ent_feat_6: "Air-Gapped Military Support & 24/7 CSIRT SLA",
         btn_tier_ent: "Enterprise Consultation (WA)",
         pay_box_title: "Payment & Instant License Activation Info",
         pay_bank_name: "Bank Transfer (Allo Bank)",
@@ -1460,18 +2798,18 @@
         pay_wa_desc: "Send your payment confirmation receipt or inquire about fleet licensing directly via WhatsApp:",
         pay_btn_wa: "Subscribe via WhatsApp: 081260006666",
         dl_header_title: "Ancaman Antivirus Download & Guide Center",
-        dl_header_desc: "Download the official Ancaman Antivirus installation package or review our cybersecurity documentation.",
+        dl_header_desc: "Download the official Ancaman Antivirus installation package or review our cyber & PQC sovereignty documentation.",
         dl_card1_title: "Windows Agent (Antivirus Installer)",
-        dl_card1_desc: "Real-time defense agent for Windows 10/11 (64-bit). Includes System Tray background monitor and free community license.",
+        dl_card1_desc: "Real-time defense agent for Windows 10/11 (64-bit). Includes System Tray monitor, local CBOM scanner, and free community license.",
         btn_dl_card1: "Download (.ZIP)",
         dl_card2_title: "User Guide & Legal Terms (ID & EN)",
         dl_card2_desc: "Step-by-step setup guides, data sovereignty privacy policies, and official terms of service.",
         btn_dl_card2: "Read Documentation",
         dl_card3_title: "Central Server Manager (Enterprise)",
-        dl_card3_desc: "Centralized fleet management console for enterprise and banking (deployed via technical team).",
+        dl_card3_desc: "Centralized fleet management & Fleet CBOM console for enterprise and banking (deployed via technical team).",
         btn_dl_card3: "Access via WhatsApp",
         footer_copy: "© 2026 PT Antivirus Ancaman Indonesia. All rights reserved.",
-        footer_sub: "Autonomous Cyber Defense Platform Safeguarding Digital Sovereignty & Connected to Global Threat Intelligence Networks.",
+        footer_sub: "Autonomous Cyber & Post-Quantum Defense Platform Safeguarding Digital Sovereignty & Connected to Global Threat Intelligence Networks.",
         footer_terms: "Terms & Conditions",
         footer_privacy: "Privacy Policy",
         footer_github: "Community GitHub",
@@ -1480,6 +2818,124 @@
     };
 
     let currentLang = 'id';
+
+    function updateMoscaSimulator() {
+      const yEl = document.getElementById('input-y');
+      const xEl = document.getElementById('input-x');
+      const zEl = document.getElementById('input-z');
+      if (!yEl || !xEl || !zEl) return;
+
+      const y = parseInt(yEl.value, 10);
+      const x = parseInt(xEl.value, 10);
+      const z = parseInt(zEl.value, 10);
+      const total = y + x;
+
+      document.getElementById('val-y').textContent = y;
+      document.getElementById('val-x').textContent = x;
+      document.getElementById('val-z').textContent = z;
+
+      const formulaEl = document.getElementById('mosca-formula-display');
+      const badgeEl = document.getElementById('mosca-badge-display');
+      const adviceEl = document.getElementById('mosca-advice-display');
+
+      if (total > z) {
+        formulaEl.innerHTML = `${y} + ${x} = <span style="color:#f87171">${total} &gt; ${z}</span>`;
+        badgeEl.className = 'mosca-status-badge critical';
+        badgeEl.textContent = currentLang === 'en' ? 'CRITICAL SNDL EXPOSURE (Y + X > Z)' : 'RISIKO SNDL KRITIS (Y + X > Z)';
+        adviceEl.textContent = currentLang === 'en'
+          ? `CRITICAL WARNING (${total} yrs > ${z} yrs): Classical RSA/ECC telemetry and encrypted archives harvested by adversaries today will be decrypted before their ${y}-year secrecy shelf-life expires. Immediately enable Ancaman Hybrid PQC Telemetry (X25519 + NIST ML-KEM-768 FIPS 203 & Ed25519 + ML-DSA-65 FIPS 204) and audit endpoints with the Local CBOM Scanner.`
+          : `PERINGATAN KRITIS (${total} thn > ${z} thn): Lalu lintas telemetri dan arsip terenkripsi klasik (RSA-2048 / ECC P-256) yang dipanen penyerang hari ini berisiko didekripsi sebelum masa kerahasiaan ${y} tahun berakhir. Aktifkan kanal Hybrid PQC Antivirus Ancaman (X25519 + NIST ML-KEM-768 FIPS 203 & Ed25519 + ML-DSA-65 FIPS 204) serta audit endpoint dengan Pemindai CBOM Lokal sekarang.`;
+      } else if (total >= z - 2) {
+        formulaEl.innerHTML = `${y} + ${x} = <span style="color:#fbbf24">${total} ≈ ${z}</span>`;
+        badgeEl.className = 'mosca-status-badge warning';
+        badgeEl.textContent = currentLang === 'en' ? 'HIGH TRANSITION URGENCY (MARGIN ≤ 2 YRS)' : 'URGENSI TRANSISI TINGGI (MARGIN ≤ 2 THN)';
+        adviceEl.textContent = currentLang === 'en'
+          ? `WARNING (${total} yrs vs ${z} yrs): Your migration safety margin is razor-thin (${z - total} yr margin). Begin inventorying all endpoint certificates and DLLs using Ancaman's CycloneDX 1.6 Local CBOM Scanner and stage hybrid ML-KEM-768 rollout.`
+          : `PERINGATAN (${total} thn vs ${z} thn): Margin keamanan migrasi kriptografi Anda sangat tipis (sisa ${z - total} tahun). Segera inventarisasi seluruh biner dan sertifikat endpoint menggunakan Pemindai CBOM CycloneDX 1.6 dan jadwalkan transisi hibrida ML-KEM-768.`;
+      } else {
+        formulaEl.innerHTML = `${y} + ${x} = <span style="color:#34d399">${total} &lt; ${z}</span>`;
+        badgeEl.className = 'mosca-status-badge safe';
+        badgeEl.textContent = currentLang === 'en' ? 'QUANTUM MIGRATION WINDOW SAFE (Y + X < Z)' : 'JENDELA MIGRASI KUANTUM AMAN (Y + X < Z)';
+        adviceEl.textContent = currentLang === 'en'
+          ? `SAFE WINDOW (${total} yrs < ${z} yrs): You currently have a +${z - total} year buffer before Q-Day impact. Maintain continuous CBOM hygiene on endpoints to eliminate legacy SHA-1/RSA-1024 libraries.`
+          : `JENDELA AMAN (${total} thn < ${z} thn): Anda memiliki waktu cadangan +${z - total} tahun sebelum estimasi Q-Day. Pertahankan audit rutin CBOM lokal pada endpoint untuk memastikan tidak ada pustaka usang SHA-1/RSA-1024.`;
+      }
+    }
+
+    function setMoscaPreset(y, x, z, key) {
+      document.getElementById('input-y').value = y;
+      document.getElementById('input-x').value = x;
+      document.getElementById('input-z').value = z;
+      ['bank', 'gov', 'mil', 'corp'].forEach(k => {
+        const btn = document.getElementById('preset-' + k);
+        if (btn) btn.classList.toggle('active', k === key);
+      });
+      updateMoscaSimulator();
+    }
+
+    function downloadSampleCbom() {
+      const sampleCbom = {
+        bomFormat: "CycloneDX",
+        specVersion: "1.6",
+        serialNumber: "urn:uuid:7a8f2c10-4e91-4b2a-a813-90e1f2c3d4a5",
+        version: 1,
+        metadata: {
+          timestamp: new Date().toISOString(),
+          tools: [{
+            vendor: "PT Antivirus Ancaman Indonesia (CTARTech Ecosystem)",
+            name: "Ancaman Quantum-Safe CBOM Scanner (ZentyQuetry Standard)",
+            version: "0.2.0-PQC"
+          }],
+          component: {
+            type: "device",
+            name: "ANCAMAN-ENDPOINT-NODE01",
+            properties: [
+              { name: "ancaman:readiness_score", value: "82" },
+              { name: "ancaman:readiness_grade", value: "B (Quantum Transition Ready)" },
+              { name: "ancaman:pqc_channel", value: "X25519 + ML-KEM-768 (NIST FIPS 203 Hybrid)" },
+              { name: "ancaman:pqc_signature", value: "Ed25519 + ML-DSA-65 (NIST FIPS 204 Composite)" }
+            ]
+          }
+        },
+        components: [
+          {
+            type: "cryptographic-asset",
+            "bom-ref": "CBOM-SYS-001",
+            name: "Ancaman Hybrid PQC Telemetry Channel",
+            cryptoProperties: {
+              assetType: "protocol",
+              algorithmProperties: {
+                primitive: "X25519 + ML-KEM-768 / Ed25519 + ML-DSA-65",
+                parameterSetIdentifier: "FIPS 203 & FIPS 204",
+                quantumReadiness: "QuantumSafeHybrid"
+              }
+            }
+          },
+          {
+            type: "cryptographic-asset",
+            "bom-ref": "CBOM-SYS-002",
+            name: "Ancaman Quarantine Vault (AES-256-GCM)",
+            cryptoProperties: {
+              assetType: "algorithm",
+              algorithmProperties: {
+                primitive: "AES-256-GCM + BLAKE3-256",
+                parameterSetIdentifier: "256-bit Symmetric",
+                quantumReadiness: "QuantumSafeGroverResistant"
+              }
+            }
+          }
+        ]
+      };
+      const blob = new Blob([JSON.stringify(sampleCbom, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ancaman-endpoint-cbom-cyclonedx-1.6.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
 
     const legalDocs = {
       terms: {
@@ -1566,6 +3022,7 @@
       document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
       localStorage.setItem('ancaman_lang', lang);
       document.documentElement.lang = lang;
+      updateMoscaSimulator();
     }
 
     function copyAccNumber() {
@@ -1605,9 +3062,45 @@
       }
     }
 
+    function toggleMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const drawer = document.getElementById('mobileNavDrawer');
+      if (!btn || !drawer) return;
+      const isOpen = drawer.classList.contains('open');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        btn.classList.add('active');
+        drawer.classList.add('open');
+      }
+    }
+
+    function closeMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const drawer = document.getElementById('mobileNavDrawer');
+      if (btn) btn.classList.remove('active');
+      if (drawer) drawer.classList.remove('open');
+    }
+
+    // Close mobile menu if clicked outside header
+    document.addEventListener('click', (e) => {
+      const header = document.getElementById('mainHeader');
+      if (header && !header.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeLegal();
+        closeMobileMenu();
+      }
+    });
+
+    // Close mobile menu on resize to desktop width
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 868) {
+        closeMobileMenu();
       }
     });
 
