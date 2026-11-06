@@ -77,39 +77,54 @@
       left: 20%;
     }
 
-    /* Navigation Bar */
+    /* Fixed Header Navigation Bar */
     header {
-      position: sticky;
+      position: fixed;
       top: 0;
-      background: rgba(10, 15, 29, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color);
-      z-index: 100;
-      transition: background-color 0.3s ease;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: rgba(10, 15, 29, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+      transition: all 0.3s ease;
+    }
+
+    body {
+      padding-top: 84px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
     }
 
     .nav-container {
-      max-width: 1200px;
+      max-width: 1380px;
       margin: 0 auto;
-      padding: 1.25rem 2rem;
+      padding: 0.85rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1.25rem;
     }
 
     .logo {
       font-weight: 800;
-      font-size: 1.5rem;
-      letter-spacing: 0.1rem;
+      font-size: 1.45rem;
+      letter-spacing: 0.08rem;
       background: var(--primary-neon);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       text-decoration: none;
       flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .logo-shield {
@@ -119,18 +134,48 @@
       flex-shrink: 0;
     }
 
+    .version-pill-nav {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary-cyan);
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      padding: 0.18rem 0.55rem;
+      border-radius: 9999px;
+      margin-left: 0.4rem;
+      letter-spacing: 0.04rem;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .desktop-nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
     .desktop-nav ul {
       display: flex;
       list-style: none;
-      gap: 2rem;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .desktop-nav ul li {
+      white-space: nowrap;
     }
 
     .desktop-nav ul li a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.3s ease;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+      padding: 0.35rem 0.2rem;
     }
 
     .desktop-nav ul li a:hover {
@@ -143,18 +188,19 @@
       padding: 0.5rem 1.25rem;
       border-radius: 9999px;
       color: #0a0f1d;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 0.88rem;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.3s ease;
       text-decoration: none;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: 1rem;
       flex-shrink: 0;
     }
 
@@ -164,8 +210,8 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-color);
       border-radius: 9999px;
-      padding: 0.2rem 0.4rem;
-      gap: 0.25rem;
+      padding: 0.2rem 0.35rem;
+      gap: 0.2rem;
       flex-shrink: 0;
     }
 
@@ -173,10 +219,10 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
-      padding: 0.25rem 0.6rem;
+      padding: 0.22rem 0.55rem;
       border-radius: 9999px;
       transition: all 0.2s ease;
       letter-spacing: 0.05rem;
@@ -975,7 +1021,23 @@
     /* =========================================================
        RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
        ========================================================= */
-    @media (max-width: 868px) {
+    @media (min-width: 961px) and (max-width: 1240px) {
+      .nav-container {
+        padding: 0.75rem 1.25rem;
+      }
+      .desktop-nav ul {
+        gap: 0.95rem;
+      }
+      .desktop-nav ul li a {
+        font-size: 0.8rem;
+      }
+      .btn-download-nav {
+        padding: 0.45rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 960px) {
       /* Glow background constraint */
       .glow-bg {
         width: 240px;
@@ -1676,40 +1738,101 @@
       border: 1px solid rgba(16, 185, 129, 0.35);
     }
 
-    .pqc-roadmap-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.75rem;
-      margin-top: 3rem;
-    }
-
-    .roadmap-phase-card {
+    .cbom-preview-wrap {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
+      overflow-x: auto;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
+      margin-top: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .roadmap-pqc-grid, .pqc-roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .roadmap-pqc-card, .roadmap-phase-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
       padding: 2rem;
       position: relative;
-      transition: border-color 0.3s ease, transform 0.2s ease;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
     }
 
-    .roadmap-phase-card:hover {
-      border-color: var(--primary-cyan);
-      transform: translateY(-4px);
+    .roadmap-pqc-card::before, .roadmap-phase-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-emerald));
+      opacity: 0.85;
     }
 
-    .phase-badge {
-      display: inline-block;
+    .roadmap-pqc-card:hover, .roadmap-phase-card:hover {
+      border-color: rgba(6, 182, 212, 0.5);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(6, 182, 212, 0.18);
+    }
+
+    .roadmap-phase-tag, .phase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       font-size: 0.75rem;
       font-weight: 800;
+      letter-spacing: 0.08rem;
       color: var(--primary-cyan);
       background: rgba(6, 182, 212, 0.12);
-      border: 1px solid rgba(6, 182, 212, 0.3);
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      margin-bottom: 1rem;
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    @media (max-width: 868px) {
+    .roadmap-pqc-card h3, .roadmap-phase-card h3 {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .roadmap-pqc-card p, .roadmap-phase-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* CTARTech 4-Pillar Grid Cards */
+    .pillar-card {
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.4rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.15);
+    }
+
+    @media (max-width: 960px) {
       .metrics-banner {
         grid-template-columns: repeat(2, 1fr);
         margin-top: 2.5rem;
@@ -2115,26 +2238,26 @@
     </div>
 
     <!-- 4-Pillar CTARTech Unified Ecosystem -->
-    <div style="margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 1rem;">
-      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 800; color: var(--primary-cyan); margin-bottom: 0.35rem;">01 • ANCAMAN EDR/XDR</div>
-        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_1_title">Kernel Sensor & Anti-Ransomware</div>
-        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_1_desc">Intersepsi proses real-time, YARA-X, heuristik AI, dan rollback VSS otomatis di setiap endpoint.</div>
+    <div style="margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
+      <div class="pillar-card">
+        <div style="font-size: 0.75rem; font-weight: 800; color: var(--primary-cyan); margin-bottom: 0.35rem; font-family: 'JetBrains Mono', monospace;">01 • ANCAMAN EDR/XDR</div>
+        <div style="font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.45rem;" data-i18n="eco_1_title">Kernel Sensor & Anti-Ransomware</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;" data-i18n="eco_1_desc">Intersepsi proses real-time, YARA-X, heuristik AI, dan rollback VSS otomatis di setiap endpoint.</div>
       </div>
-      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 800; color: #c084fc; margin-bottom: 0.35rem;">02 • ZENTYQUETRY PQC BRIDGE</div>
-        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_2_title">CycloneDX 1.6 CBOM & FIPS 203/204</div>
-        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_2_desc">Sinkronisasi inventaris kriptografi endpoint dan mitigasi Store-Now-Decrypt-Later (SNDL).</div>
+      <div class="pillar-card">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #c084fc; margin-bottom: 0.35rem; font-family: 'JetBrains Mono', monospace;">02 • ZENTYQUETRY PQC BRIDGE</div>
+        <div style="font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.45rem;" data-i18n="eco_2_title">CycloneDX 1.6 CBOM & FIPS 203/204</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;" data-i18n="eco_2_desc">Sinkronisasi inventaris kriptografi endpoint dan mitigasi Store-Now-Decrypt-Later (SNDL).</div>
       </div>
-      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 800; color: var(--primary-emerald); margin-bottom: 0.35rem;">03 • GPLAY AI DATABANK</div>
-        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_3_title">Global Threat & Crypto Intelligence</div>
-        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_3_desc">Pengayaan IoC STIX 2.1/TAXII dan deteksi zero-day berbasis model neural terdistribusi.</div>
+      <div class="pillar-card">
+        <div style="font-size: 0.75rem; font-weight: 800; color: var(--primary-emerald); margin-bottom: 0.35rem; font-family: 'JetBrains Mono', monospace;">03 • GPLAY AI DATABANK</div>
+        <div style="font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.45rem;" data-i18n="eco_3_title">Global Threat & Crypto Intelligence</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;" data-i18n="eco_3_desc">Pengayaan IoC STIX 2.1/TAXII dan deteksi zero-day berbasis model neural terdistribusi.</div>
       </div>
-      <div style="background: rgba(15,23,42,0.75); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 800; color: #fbbf24; margin-bottom: 0.35rem;">04 • ZENTYTEAMSCORE WORM</div>
-        <div style="font-weight: 700; font-size: 0.98rem; margin-bottom: 0.35rem;" data-i18n="eco_4_title">Immutable Audit & BSSN Compliance</div>
-        <div style="font-size: 0.83rem; color: var(--text-muted);" data-i18n="eco_4_desc">Pencatatan bukti forensik dan kepatuhan regulasi yang ditandatangani secara kriptografis.</div>
+      <div class="pillar-card">
+        <div style="font-size: 0.75rem; font-weight: 800; color: #fbbf24; margin-bottom: 0.35rem; font-family: 'JetBrains Mono', monospace;">04 • ZENTYTEAMSCORE WORM</div>
+        <div style="font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.45rem;" data-i18n="eco_4_title">Immutable Audit & BSSN Compliance</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;" data-i18n="eco_4_desc">Pencatatan bukti forensik dan kepatuhan regulasi yang ditandatangani secara kriptografis.</div>
       </div>
     </div>
   </section>
@@ -2412,8 +2535,10 @@
         <h3 data-i18n="dl_card1_title">Windows Agent (Installer Antivirus)</h3>
         <p data-i18n="dl_card1_desc">Paket proteksi real-time untuk Windows 10/11 (64-bit). Lengkap dengan Tray Icon,
           auto-start, pemindai CBOM lokal, dan lisensi gratis.</p>
-        <a href="/downloads/ancaman_agent_setup.zip" class="btn-download-card" download data-i18n="btn_dl_card1">Unduh
-          (.ZIP)</a>
+        <div style="display: flex; gap: 6px; flex-direction: column;">
+          <a href="/downloads/AncamanSetup.zip" class="btn-download-card" download data-i18n="btn_dl_card1">Unduh AncamanSetup (.ZIP)</a>
+          <a href="/downloads/ancaman_agent_setup.zip" style="font-size: 0.78rem; color: var(--text-muted); text-align: center; text-decoration: underline; margin-top: 4px;" download>Mirror: ancaman_agent_setup.zip</a>
+        </div>
       </div>
 
       <!-- User Guide & Legal Terms -->
